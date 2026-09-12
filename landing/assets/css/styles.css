@@ -828,7 +828,15 @@ a { color: inherit; }
   line-height: 1;
   z-index: 1;
 }
-.profile .slot { margin: 1rem 1rem 0; background: rgba(0,0,0,.2); border-radius: var(--r-sm); }
+.profile .slot { margin: 1rem 1rem 0; border-radius: var(--r-sm); }
+/* o fundo escuro serve só ao placeholder; quando a arte entra ele sai de cena,
+   senão o retrato fica num retângulo mais escuro que o card */
+.profile .slot:not(.is-filled) { background: rgba(0,0,0,.2); }
+/* Os retratos são desenho de linha branca sobre fundo preto. O blend "screen"
+   apaga o preto e deixa só a linha — então eles NÃO precisam ser PNG
+   transparente, o que economiza uma etapa de recorte. Se um dia você trocar
+   por fotografia, apague esta regra, senão a foto some. */
+.profile .slot > img { mix-blend-mode: screen; }
 .profile__body { padding: 1.2rem; display: grid; gap: .75rem; }
 .profile__facts { list-style: none; margin: 0; padding: 0; display: grid; gap: .55rem; font-size: var(--f-sm); }
 .profile__facts li { display: grid; grid-template-columns: 18px 1fr; gap: .65rem; align-items: start; color: var(--text-2); }

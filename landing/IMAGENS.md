@@ -15,14 +15,14 @@ não casa — tudo tem que ser escuro e de luz quente.
 
 | # | Arquivo | Tamanho | Formato | Onde | Prioridade |
 |---|---------|---------|---------|------|------------|
-| 1 | `hero-book.png` | 1200 × 1500 | PNG transparente | Palco do topo | **essencial** |
-| 2 | `livro-aberto.jpg` | 1800 × 1150 | JPG | "Mais sobre o Volume 1" | **essencial** |
-| 3 | `retrato-01.png` | 700 × 700 | PNG transparente | Perfil Marina | alta |
-| 4 | `retrato-02.png` | 700 × 700 | PNG transparente | Perfil Rafael | alta |
-| 5 | `retrato-03.png` | 700 × 700 | PNG transparente | Perfil Célia | alta |
-| 6 | `autor.jpg` | 800 × 800 | JPG | "Oi, eu sou o Gui" | alta |
-| 7 | `og-image.jpg` | 1200 × 630 | JPG | Prévia no WhatsApp | média |
-| 8 | `favicon.png` | 512 × 512 | PNG | Ícone da aba | média |
+| 1 | `hero-book.png` | 1200 × 1500 | PNG transparente | Palco do topo | ✅ gerada (falta recortar) |
+| 2 | `livro-aberto.jpg` | 1800 × 1150 | JPG | "Mais sobre o Volume 1" | ✅ gerada |
+| 3 | `retrato-01.png` | 700 × 700 | PNG (fundo preto serve) | Perfil Marina | ✅ gerada |
+| 4 | `retrato-02.png` | 700 × 700 | PNG (fundo preto serve) | Perfil Rafael | ✅ gerada |
+| 5 | `retrato-03.png` | 700 × 700 | PNG (fundo preto serve) | Perfil Célia | ✅ gerada |
+| 6 | `autor.jpg` | 800 × 800 | JPG | "Oi, eu sou o Gui" | 📸 **você envia** |
+| 7 | `og-image.jpg` | 1200 × 630 | JPG | Prévia no WhatsApp | ✅ base gerada |
+| 8 | `favicon.png` | 512 × 512 | PNG | Ícone da aba | ✅ gerada |
 
 ---
 

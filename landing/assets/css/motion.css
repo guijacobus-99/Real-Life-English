@@ -238,8 +238,13 @@
   );
 }
 .tile:hover::after, .profile:hover::after, .faq__item:hover::after { opacity: 1; }
-/* o conteúdo fica acima do holofote */
-.tile > *, .profile > *, .faq__item > * { position: relative; z-index: 1; }
+
+/* O holofote passa POR CIMA do conteúdo, não por baixo.
+   Motivo: dar z-index aos filhos do card criaria um contexto de
+   empilhamento em cada um — e isso isola o `mix-blend-mode` dos retratos,
+   que param de fundir com o fundo do card e viram um retângulo preto.
+   Como o brilho é âmbar a 13%, passar por cima não atrapalha a leitura. */
+.tile::after, .profile::after, .faq__item::after { z-index: 2; }
 
 /* as palavras da demonstração respondem antes do clique */
 .w { transition: background .18s var(--ease), color .18s var(--ease), border-color .18s var(--ease), transform .18s var(--ease); }
