@@ -6,7 +6,8 @@
    uma joia numa loja.
 
    Paleta: void #08080A · vidro branco 4% · âmbar #E0A53F · esmeralda #4FBE87
-   Tipos:  Archivo (display, expandida) · Manrope (texto) · IBM Plex Mono
+   Tipos:  Geist (títulos e texto) · Geist Mono (rótulos e dados)
+            Uma família só, como a Apple faz com SF Pro + SF Mono.
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -42,9 +43,13 @@
   --text-2:  #A8A29B;
   --text-3:  #6E6962;
 
-  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
-  --body:    "Manrope", "Helvetica Neue", Arial, sans-serif;
-  --mono:    "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --display: "Geist", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --body:    "Geist", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --mono:    "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* curva de aceleração — entra rápido, assenta devagar */
+  --ease:      cubic-bezier(.22, 1, .36, 1);
+  --ease-soft: cubic-bezier(.4, 0, .2, 1);
 
   --f-xs:   .75rem;
   --f-sm:   .875rem;
@@ -83,10 +88,9 @@ body {
 
 h1, h2, h3, h4 {
   font-family: var(--display);
-  font-weight: 700;
-  font-stretch: 112%;
-  line-height: 1.04;
-  letter-spacing: -.022em;
+  font-weight: 600;
+  line-height: 1.06;
+  letter-spacing: -.032em;
   text-wrap: balance;
   margin: 0;
 }
@@ -180,18 +184,16 @@ a { color: inherit; }
   justify-content: center;
   gap: .6rem;
   font-family: var(--display);
-  font-weight: 700;
-  font-stretch: 108%;
+  font-weight: 600;
   font-size: var(--f-base);
-  letter-spacing: .04em;
-  text-transform: uppercase;
-  padding: 1.15rem 2.4rem;
+  letter-spacing: -.01em;
+  padding: 1.05rem 2.3rem;
   border: 0;
   border-radius: 999px;
   text-decoration: none;
   cursor: pointer;
   overflow: hidden;
-  transition: transform .2s cubic-bezier(.2,.8,.3,1), box-shadow .2s ease, filter .2s ease;
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease), filter .3s var(--ease);
 }
 
 .btn--primary {
@@ -220,10 +222,7 @@ a { color: inherit; }
   border: 1px solid var(--edge);
   color: var(--text);
   box-shadow: var(--sheen);
-  text-transform: none;
-  letter-spacing: 0;
-  font-family: var(--body);
-  font-weight: 600;
+  font-weight: 500;
 }
 .btn--glass:hover { border-color: var(--edge-lit); background: var(--glass-strong); }
 
@@ -271,7 +270,6 @@ a { color: inherit; }
 .brand__name {
   font-family: var(--display);
   font-weight: 700;
-  font-stretch: 112%;
   font-size: .95rem;
   letter-spacing: -.01em;
   white-space: nowrap;
@@ -314,9 +312,9 @@ a { color: inherit; }
 
 .hero__wordmark {
   font-size: var(--f-4xl);
-  font-stretch: 118%;
-  line-height: .96;
-  letter-spacing: -.035em;
+  font-weight: 700;
+  line-height: .98;
+  letter-spacing: -.045em;
   text-transform: uppercase;
   background: linear-gradient(178deg, #FFFFFF 12%, #C9C4BD 58%, #8C867E 100%);
   -webkit-background-clip: text;
@@ -362,21 +360,6 @@ a { color: inherit; }
   gap: .8rem;
 }
 .bonus__title { font-weight: 700; font-size: var(--f-base); line-height: 1.45; }
-.bonus__count {
-  display: flex;
-  align-items: center;
-  gap: .6rem;
-  font-family: var(--mono);
-  font-size: var(--f-sm);
-  color: var(--amber);
-}
-.bonus__bar { height: 5px; border-radius: 999px; background: rgba(255,255,255,.08); overflow: hidden; }
-.bonus__fill {
-  height: 100%;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--amber-lo), var(--amber-hi));
-  box-shadow: 0 0 14px var(--amber-glow);
-}
 .bonus__note { font-size: var(--f-sm); color: var(--text-3); line-height: 1.55; }
 .bonus__note a { color: var(--text-2); }
 
@@ -539,7 +522,6 @@ a { color: inherit; }
   font-family: var(--display);
   font-size: clamp(1.6rem, 3.4vw, 2.2rem);
   font-weight: 700;
-  font-stretch: 115%;
   color: var(--amber);
   line-height: 1;
   font-variant-numeric: tabular-nums;
@@ -630,7 +612,6 @@ a { color: inherit; }
 .toc__title {
   font-family: var(--display);
   font-weight: 700;
-  font-stretch: 112%;
   font-size: 1.12rem;
   text-align: center;
   padding-bottom: .9rem;
@@ -657,7 +638,6 @@ a { color: inherit; }
 .toc__n {
   font-family: var(--display);
   font-weight: 700;
-  font-stretch: 115%;
   font-size: 1.5rem;
   color: rgba(36,24,4,.9);
   font-variant-numeric: tabular-nums;
@@ -730,7 +710,7 @@ a { color: inherit; }
   margin-bottom: 1.3rem;
   border-bottom: 1px solid var(--edge);
 }
-.story__title { font-family: var(--display); font-size: 1.25rem; font-weight: 700; font-stretch: 110%; }
+.story__title { font-family: var(--display); font-size: 1.25rem; font-weight: 700; }
 .story__code { font-family: var(--mono); font-size: var(--f-xs); letter-spacing: .13em; text-transform: uppercase; color: var(--text-3); }
 
 .story__text {
@@ -844,7 +824,6 @@ a { color: inherit; }
   font-family: var(--display);
   font-size: 2.4rem;
   font-weight: 700;
-  font-stretch: 118%;
   color: rgba(255,255,255,.07);
   line-height: 1;
   z-index: 1;
@@ -891,7 +870,7 @@ a { color: inherit; }
   color: var(--amber);
   margin-bottom: .3rem;
 }
-.tile h3 { font-size: 1.05rem; font-stretch: 108%; }
+.tile h3 { font-size: 1.05rem; }
 .tile p { font-size: var(--f-sm); color: var(--text-2); line-height: 1.65; }
 .tile--wide { grid-column: span 2; }
 @media (max-width: 560px) { .tile--wide { grid-column: span 1; } }
@@ -1012,7 +991,7 @@ a { color: inherit; }
   align-items: center;
 }
 .author__body { display: grid; gap: 1rem; color: var(--text-2); }
-.author__sig { font-family: var(--display); font-size: 1.2rem; font-weight: 700; font-stretch: 108%; color: var(--amber); }
+.author__sig { font-family: var(--display); font-size: 1.2rem; font-weight: 700; color: var(--amber); }
 @media (max-width: 760px) { .author__grid { grid-template-columns: 1fr; } .author__grid .slot { max-width: 250px; } }
 
 /* --------------------------------------------------------------------------
@@ -1050,7 +1029,6 @@ a { color: inherit; }
   font-family: var(--display);
   font-size: clamp(2.8rem, 7vw, 3.6rem);
   font-weight: 700;
-  font-stretch: 115%;
   line-height: 1;
   letter-spacing: -.03em;
   font-variant-numeric: tabular-nums;
@@ -1119,7 +1097,6 @@ a { color: inherit; }
   font-family: var(--display);
   font-size: 1.02rem;
   font-weight: 700;
-  font-stretch: 106%;
 }
 .faq__item summary::-webkit-details-marker { display: none; }
 .faq__item summary:hover { color: var(--amber-hi); }
@@ -1190,7 +1167,7 @@ a { color: inherit; }
   transition: transform .28s ease;
 }
 .sticky-buy.is-on { transform: translateY(0); }
-.sticky-buy__price { font-family: var(--display); font-size: 1.2rem; font-weight: 700; font-stretch: 110%; }
+.sticky-buy__price { font-family: var(--display); font-size: 1.2rem; font-weight: 700; }
 .sticky-buy__label { font-family: var(--mono); font-size: .56rem; letter-spacing: .12em; text-transform: uppercase; color: var(--text-3); }
 @media (max-width: 760px) { .sticky-buy { display: flex; } body { padding-bottom: 76px; } }
 

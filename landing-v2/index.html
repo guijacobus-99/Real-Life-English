@@ -20,10 +20,13 @@
 <link rel="icon" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..800&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="assets/css/styles.css">
+<link rel="stylesheet" href="assets/css/motion.css">
 </head>
 <body>
+
+<div class="scroll-progress" aria-hidden="true"></div>
 
 <!-- ==========================================================================
      NAVEGAÇÃO FLUTUANTE
@@ -48,6 +51,7 @@
 </header>
 
 <div class="shell">
+<div class="seam" aria-hidden="true"></div>
 <main>
 
 <!-- ==========================================================================
@@ -81,14 +85,9 @@
         <a class="btn btn--glass" href="#historia">Ler uma história de graça</a>
       </div>
 
-      <!-- ===== EDITAR: bônus e vagas. Ver o README antes de mexer nos números. ===== -->
+      <!-- ===== EDITAR: bônus de lançamento. Apague esta div inteira se não for dar o bônus. ===== -->
       <div class="bonus">
         <p class="bonus__title">As primeiras <b>50 compras</b> levam uma conversa de 15&nbsp;min comigo, pra montar seu plano de estudo.</p>
-        <div class="bonus__count">
-          <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8.5h13v6.5a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1zM1.8 5.5h14.4v3H1.8zM9 5.5v10.5" stroke-linejoin="round"/><path d="M9 5.5S8 2 6.2 2a1.8 1.8 0 0 0 0 3.5zM9 5.5S10 2 11.8 2a1.8 1.8 0 0 1 0 3.5z" stroke-linejoin="round"/></svg>
-          <span><b data-spots-left>50</b>/<span data-spots-total>50</span> vagas restantes</span>
-        </div>
-        <div class="bonus__bar"><div class="bonus__fill" data-spots-bar style="width:100%"></div></div>
         <p class="bonus__note">Ainda na dúvida? <a href="#historia">Leia uma história aqui na página</a> antes de decidir — sem cadastro, sem e-mail.</p>
       </div>
     </div>
@@ -599,5 +598,6 @@ Não use termos técnicos de gramática.</div>
 </div>
 
 <script src="assets/js/main.js"></script>
+<script src="assets/js/motion.js"></script>
 </body>
 </html>

@@ -16,14 +16,15 @@ build.
 |---|---|---|
 | **Fundo** | azul-noite `#0D1826` | quase-preto quente `#08080A` |
 | **Sensação** | íntimo, artesanal, editorial | caro, brilhante, produto em exposição |
-| **Tipos** | Fraunces (serifada) + Karla | Archivo expandida + Manrope |
+| **Tipos** | Fraunces (serifada) + Karla | Geist + Geist Mono |
 | **Menu** | barra colada no topo | pílula de vidro flutuante |
 | **Botões** | gradiente suave | verniz especular, brilho âmbar |
 | **Peça central** | história em papel creme | livro aberto com painéis sobrepostos |
 | **Sumário** | lista de capítulos escura | painel dourado em cima da foto |
 | **Perfis** | fotos de pessoas | ilustrações em linha |
 | **Oferta** | cartão de embarque com picote | cartão de vidro com lateral iluminada |
-| **Bônus/vagas** | não tem | bloco de vagas com barra |
+| **Bônus** | não tem | bloco de bônus de lançamento |
+| **Movimento** | transições de hover | camada de movimento presa ao scroll |
 
 **O que é igual nas duas:** a copy, os 7 capítulos, os 3 perfis, a garantia de
 7 dias, o FAQ, e a demonstração ao vivo do toque-pra-traduzir.
@@ -49,26 +50,15 @@ aba nova. Um lugar só — os cinco botões puxam daqui.
 `index.html`, procure por `EDITAR: preço`. O `47` é exemplo. A barra fixa do
 celular copia esse valor sozinha.
 
-### 3. Bloco de vagas — **decida antes de publicar**
+### 3. Bloco de bônus — **decida antes de publicar**
 
-O topo tem um bloco de bônus com contador de vagas, igual à referência que
-você mandou. Ele é controlado em `assets/js/main.js`:
+O contador de vagas foi removido. Sobrou só a frase do bônus de lançamento,
+no topo:
 
-```js
-spotsTotal: 50,
-spotsLeft: 50
-```
+> As primeiras 50 compras levam uma conversa de 15 min comigo.
 
-**Três caminhos honestos:**
-
-- **Vai mesmo dar a conversa de 15 min pras 50 primeiras?** Deixe o bloco e
-  atualize o `spotsLeft` de verdade conforme as vagas forem indo.
-- **Vai dar o bônus, mas sem contador?** Apague a `<div class="bonus__count">`
-  e a `<div class="bonus__bar">`, mantenha o texto.
-- **Não vai dar bônus nenhum?** Apague a `<div class="bonus">` inteira.
-
-O que não dá é deixar um número parado fingindo que está acabando. Escassez
-falsa é infração ao CDC, as plataformas derrubam a página, e o público sente.
+**Se você não vai dar esse bônus, apague a `<div class="bonus">` inteira.**
+Promessa de bônus é oferta: uma vez publicada, quem comprar pode cobrar.
 
 ### 4. Imagens — **obrigatório**
 
@@ -153,8 +143,20 @@ na referência, adaptada pra sua marca.
 | Esmeralda (confirmação) | `#4FBE87` |
 | Texto secundário | `#A8A29B` |
 
-**Tipografia:** Archivo em largura expandida (títulos e logotipo — é ela que
-dá o peso) · Manrope (texto) · IBM Plex Mono (rótulos e dados).
+**Tipografia: Geist e Geist Mono** — uma família só, para texto e títulos,
+com a monoespaçada irmã nos rótulos. É a mesma lógica da Apple, que usa
+SF Pro no texto e SF Mono nos dados: em vez de casar duas fontes de origens
+diferentes, você usa dois membros da mesma casa e o conjunto fica coeso
+sozinho.
+
+A Geist é uma grotesca suíça de formas quadradas e terminais retos —
+corporativa sem ser dura. O que faz ela parecer Apple não é o desenho da
+letra, é o **tracking negativo nos títulos** (`-.032em`, e `-.045em` no
+logotipo): título grande com letra apertada é a assinatura das páginas de
+produto da Apple.
+
+Também não tem mais nenhum `font-stretch`: era a largura esticada da fonte
+anterior que dava aquele ar de gerador automático.
 
 **Como o brilho é feito:** todo card de vidro tem um fio de luz de 1 px no
 topo (`inset 0 1px 0 rgba(255,255,255,.1)`) e sombra profunda embaixo. O botão
@@ -162,6 +164,55 @@ tem um verniz especular na metade de cima. É essa dupla que dá o aspecto de
 objeto físico em vez de retângulo colorido.
 
 Pra mudar as cores, mexa só no bloco `:root` do `styles.css`.
+
+---
+
+## A camada de movimento
+
+Vive em dois arquivos separados do resto, pra ser fácil de ajustar ou
+desligar: `assets/css/motion.css` e `assets/js/motion.js`. **Pra desligar
+tudo, apague as duas linhas que carregam esses arquivos no `index.html`** —
+a página continua funcionando inteira, só parada.
+
+**O conceito:** a luz percorre a página. Nada voa, nada pula, nada gira. O
+que se move é a luz, a profundidade e o foco — mesmo princípio das páginas
+de produto da Apple, onde o movimento dirige o olhar e você não consegue
+apontar onde ele começa.
+
+### O que acontece, na ordem
+
+| Momento | O que se move |
+|---|---|
+| **Ao abrir** | Cascata curta: logotipo, frase, checks, botão e bônus entram em sequência; o livro sobe enquanto a luz acende atrás dele; os cartões "antes/depois" chegam por último, já inclinados |
+| **Ao rolar o topo** | O livro sobe mais devagar que o texto e a luz atrás se abre — dois planos, duas velocidades, é isso que dá profundidade |
+| **Em cada bloco** | Os elementos assentam ao entrar na tela, com cascata entre irmãos |
+| **No livro aberto** | A foto entra, depois o painel do argumento, depois o sumário — e os sete vistos verdes acendem um a um conforme você desce |
+| **O tempo todo** | Barra de progresso âmbar no topo e um fio de luz descendo pela lateral esquerda, ligando um bloco ao outro |
+| **No cursor** | Um holofote suave segue o mouse dentro dos cards; o verniz do botão varre quando você passa por cima |
+
+### Por que não trava a rolagem
+
+O movimento por scroll usa **animação nativa presa ao scroll**
+(`animation-timeline`), não JavaScript escutando evento de rolagem. Roda na
+GPU, acompanha o dedo, e não dá aquele arrasto de página com parallax mal
+feito.
+
+### As três garantias
+
+1. **Nada pode esconder conteúdo.** Todo o movimento de scroll está dentro de
+   um `@supports`. Navegador que não entende recebe zero animação e mostra a
+   página inteira montada. O padrão é "visível"; movimento é acréscimo.
+2. **Quem pediu menos movimento não recebe nenhum.** Tudo está sob
+   `prefers-reduced-motion: no-preference`. Quem liga a redução de movimento
+   no sistema vê a página estática.
+3. **Firefox não fica de fora.** Ele ainda não tem animação presa ao scroll,
+   então a barra de progresso e o fio lateral caem num fallback em
+   JavaScript. A abertura do topo e as interações de cursor funcionam em
+   todos os navegadores de qualquer jeito.
+
+Isso foi testado varrendo a página em 25 posições de parada, em três alturas
+de tela (desktop, tela baixa e celular), conferindo se algum elemento ficava
+semitransparente parado na frente do leitor. Nenhum ficou.
 
 ---
 
@@ -173,4 +224,5 @@ Pra mudar as cores, mexa só no bloco `:root` do `styles.css`.
 - Acessível: navegação por teclado, foco visível, `prefers-reduced-motion`
 - Sem dependência externa além das fontes do Google
 - Placeholders de imagem que somem sozinhos quando o arquivo aparece
+- Movimento que respeita `prefers-reduced-motion` e nunca esconde conteúdo
 - Tags de compartilhamento prontas — falta só o domínio

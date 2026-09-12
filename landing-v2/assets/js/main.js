@@ -13,12 +13,8 @@
     // os botões de compra levam pra seção de preço.
     checkoutUrl: '',
 
-    // Bloco de bônus do topo: quantas vagas de conversa de 15 min existem
-    // e quantas ainda restam. Mantenha fiel à realidade — escassez inventada
-    // é infração ao CDC e o público sente. Pra esconder o bloco inteiro,
-    // apague a <div class="bonus"> do index.html.
-    spotsTotal: 50,
-    spotsLeft: 50
+    // Moeda usada nos textos de preço.
+    currency: 'R$'
   };
 
   /* ========================================================================
@@ -274,17 +270,6 @@
   var yearEl = $('[data-year]');
   if (yearEl) { yearEl.textContent = new Date().getFullYear(); }
 
-  // bloco de vagas do bônus
-  var spotsLeftEl = $('[data-spots-left]');
-  var spotsTotalEl = $('[data-spots-total]');
-  var spotsBar = $('[data-spots-bar]');
-  if (spotsLeftEl && spotsTotalEl && spotsBar) {
-    var total = Math.max(1, CONFIG.spotsTotal);
-    var left = Math.max(0, Math.min(CONFIG.spotsLeft, total));
-    spotsLeftEl.textContent = left;
-    spotsTotalEl.textContent = total;
-    spotsBar.style.width = (left / total * 100) + '%';
-  }
 
   /* ========================================================================
      6. Copiar o prompt do tutor
