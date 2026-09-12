@@ -84,7 +84,10 @@ Promessa de bônus é oferta: uma vez publicada, quem comprar pode cobrar.
 
 ### 4. Imagens — **obrigatório**
 
-Veja o `IMAGENS.md` — ele lista o que já foi gerado e o que ainda falta.
+Veja o `IMAGENS.md`. As duas essenciais (capa em 3D e livro aberto) já foram
+geradas pelo Higgsfield e estão na sua galeria em higgsfield.ai — baixe de lá
+e salve na pasta `assets/img/` com o nome exato. O arquivo traz também os
+prompts que funcionaram e os limites da conta free.
 
 ### 5. Domínio e e-mail — **obrigatório**
 
