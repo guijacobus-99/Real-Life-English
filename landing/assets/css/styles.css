@@ -998,6 +998,13 @@ a { color: inherit; }
   gap: clamp(2rem, 5vw, 3.5rem);
   align-items: center;
 }
+/* a foto do autor ganha a mesma moldura dos cards de vidro,
+   senão fica um retângulo solto no meio da página */
+.author__grid .slot {
+  border: 1px solid var(--edge);
+  box-shadow: var(--sheen), 0 30px 60px -34px #000;
+  overflow: hidden;
+}
 .author__body { display: grid; gap: 1rem; color: var(--text-2); }
 .author__sig { font-family: var(--display); font-size: 1.2rem; font-weight: 700; color: var(--amber); }
 @media (max-width: 760px) { .author__grid { grid-template-columns: 1fr; } .author__grid .slot { max-width: 250px; } }

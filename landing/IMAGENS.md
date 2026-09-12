@@ -20,7 +20,7 @@ não casa — tudo tem que ser escuro e de luz quente.
 | 3 | `retrato-01.png` | 700 × 700 | PNG (fundo preto serve) | Perfil Marina | ✅ gerada |
 | 4 | `retrato-02.png` | 700 × 700 | PNG (fundo preto serve) | Perfil Rafael | ✅ gerada |
 | 5 | `retrato-03.png` | 700 × 700 | PNG (fundo preto serve) | Perfil Célia | ✅ gerada |
-| 6 | `autor.jpg` | 800 × 800 | JPG | "Oi, eu sou o Gui" | 📸 **você envia** |
+| 6 | `autor.jpg` | 800 × 800 | JPG | "Oi, eu sou o Gui" | ✅ **pronta, já na pasta** |
 | 7 | `og-image.jpg` | 1200 × 630 | JPG | Prévia no WhatsApp | ✅ base gerada |
 | 8 | `favicon.png` | 512 × 512 | PNG | Ícone da aba | ✅ gerada |
 
@@ -94,13 +94,26 @@ illustration style, clean and confident linework.
 
 ---
 
-## 6. `autor.jpg` — sua foto · 800 × 800 · JPG
+## 6. `autor.jpg` — sua foto · 800 × 800 · JPG ✅ **feita**
 
-**Foto sua de verdade**, nada de IA — é a seção de confiança.
+Já está em `assets/img/autor.jpg`. O que foi feito com a foto que você mandou:
 
-Nesta versão o fundo da página é escuro, então **prefira uma foto com fundo
-escuro** ou escurecido: parede em sombra, ambiente noturno, luz lateral.
-Foto com fundo branco estourado vai brigar com o resto da página.
+- Recorte quadrado de 1530 × 1530 da original (1932 × 2576), do topo da
+  cabeça até o peito, com o rosto centralizado
+- Redimensionada para 800 × 800
+- JPEG progressivo, qualidade 88 — **112 KB**, bem abaixo do limite de 300 KB
+
+**Ela caiu bem por acaso:** a luz âmbar do ambiente onde a foto foi tirada é
+quase a mesma cor do acento da marca (`#E0A53F`). Foto de luz fria ou de
+fundo branco teria brigado com a página; essa conversa com ela.
+
+A moldura de vidro — fio de luz no topo e sombra profunda — vem do CSS, na
+regra `.author__grid .slot`. É a mesma dos outros cards, pra foto não ficar
+um retângulo solto no meio da página.
+
+> **Se um dia trocar a foto:** mantenha o nome `autor.jpg`, corte em quadrado
+> e prefira ambiente de luz quente com fundo escuro. Fundo branco estourado
+> vai brigar com o resto.
 
 ---
 
