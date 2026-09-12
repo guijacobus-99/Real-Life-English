@@ -1,185 +1,140 @@
-# Imagens da landing page — o que eu preciso de você
+# Imagens da página — o que já tem e o que falta
 
-A página já está montada e funcionando. Onde falta arte, aparece um **retângulo
-tracejado** com o nome do arquivo e o tamanho. Assim que você salvar a imagem
-com o nome exato dentro de `landing/assets/img/`, o placeholder some sozinho —
-não precisa mexer em código.
+Onde falta arte, a página mostra um **retângulo tracejado** com o nome do
+arquivo e o tamanho. Salve a imagem com o nome exato em
+`landing/assets/img/` e o placeholder some sozinho.
 
-**Paleta da marca** (use em todos os prompts): azul-noite `#0D1826` · âmbar
-`#E0A53F` · papel quente `#F3EADA`.
+**Atenção:** o fundo da página é quase-preto quente. Arte clara ou azulada
+não casa — tudo tem que ser escuro e de luz quente.
 
----
-
-## Resumo — 9 arquivos
-
-| # | Arquivo | Tamanho | Formato | Onde aparece | Prioridade |
-|---|---------|---------|---------|--------------|------------|
-| 1 | `hero-book.png` | 1200 × 1500 | PNG transparente | Topo da página | **essencial** |
-| 2 | `livro-aberto.jpg` | 1600 × 1100 | JPG | "O que vem dentro" | **essencial** |
-| 3 | `leitor-01.jpg` | 800 × 1000 | JPG | Card "Vai viajar pela primeira vez" | alta |
-| 4 | `leitor-02.jpg` | 800 × 1000 | JPG | Card "Cansou de app e curso chato" | alta |
-| 5 | `leitor-03.jpg` | 800 × 1000 | JPG | Card "Quer aprender sem pressão" | alta |
-| 6 | `autor.jpg` | 800 × 800 | JPG | Seção "Oi, eu sou o Gui" | alta |
-| 7 | `og-image.jpg` | 1200 × 630 | JPG | Prévia no WhatsApp/Insta/Google | média |
-| 8 | `favicon.png` | 512 × 512 | PNG | Ícone da aba do navegador | média |
-| 9 | `depoimento-1..3.jpg` | 200 × 200 | JPG | Depoimentos (só quando tiver os reais) | depois |
+**Paleta:** void `#08080A` · âmbar `#E0A53F` · esmeralda `#4FBE87`
 
 ---
 
-## 0. A capa (base de tudo)
+## Resumo — 8 arquivos
 
-Antes das outras, gere **a capa do ebook** — ela é a arte que vai dentro do
-mockup da imagem 1. Use o prompt que você já tinha, com o ajuste da paleta:
-
-```
-A premium ebook cover, vertical portrait format, elegant and modern. Deep
-midnight-blue background (#0D1826) with warm amber-gold accents (#E0A53F).
-In the center, an elegant vintage-style illustration in fine gold linework: a
-passport stamp, an airplane, and a coffee cup arranged like a travel journal.
-Clean, sophisticated, lots of negative space. The mood is a premium travel
-journal meeting a language course. Faint dashed circular lines like passport
-stamps in the corners. Minimalist, high-end, professional book cover design.
-No text — leave clean space at the top and center for a title. Monochrome
-gold-on-navy palette, refined and inviting.
-```
-
-Depois, no Canva, aplique por cima:
-- **Título:** Real-Life English
-- **Subtítulo:** Histórias para Aprender Inglês de Verdade
-- **Selo:** Volume 1 · Iniciante (A1–A2)
-- **Assinatura:** GJ (rodapé)
+| # | Arquivo | Tamanho | Formato | Onde | Prioridade |
+|---|---------|---------|---------|------|------------|
+| 1 | `hero-book.png` | 1200 × 1500 | PNG transparente | Palco do topo | **essencial** |
+| 2 | `livro-aberto.jpg` | 1800 × 1150 | JPG | "Mais sobre o Volume 1" | **essencial** |
+| 3 | `retrato-01.png` | 700 × 700 | PNG transparente | Perfil Marina | alta |
+| 4 | `retrato-02.png` | 700 × 700 | PNG transparente | Perfil Rafael | alta |
+| 5 | `retrato-03.png` | 700 × 700 | PNG transparente | Perfil Célia | alta |
+| 6 | `autor.jpg` | 800 × 800 | JPG | "Oi, eu sou o Gui" | alta |
+| 7 | `og-image.jpg` | 1200 × 630 | JPG | Prévia no WhatsApp | média |
+| 8 | `favicon.png` | 512 × 512 | PNG | Ícone da aba | média |
 
 ---
 
-## 1. `hero-book.png` — mockup 3D da capa · 1200 × 1500 · PNG **transparente**
+## 1. `hero-book.png` — o livro no palco · 1200 × 1500 · PNG **transparente**
 
-É a primeira coisa que a pessoa vê. Tem que ser impecável.
+Aqui o livro é iluminado como joia em vitrine: fundo quase-preto, luz âmbar
+vindo de cima. Quanto mais contraste e brilho especular na capa, melhor.
 
-**Caminho mais rápido:** pegue a capa finalizada e jogue num gerador de mockup
-3D de livro (o Canva tem; o Placeit também). Exporte **sem fundo**.
-
-**Se preferir gerar por IA:**
 ```
-A 3D book mockup floating at a slight angle, front cover facing the viewer,
-soft realistic shadow beneath. The cover is deep midnight-blue with gold
-linework illustration. Studio lighting from the upper left, warm amber rim
-light on the right edge. Isolated on a fully transparent background. Premium
-product photography, sharp focus, high detail.
+A 3D book mockup floating at a slight three-quarter angle, front cover facing
+the viewer. Dramatic studio lighting: a warm amber key light from the upper
+left, a soft cool rim light on the right edge, deep falloff into darkness.
+Glossy cover with visible specular highlights. Isolated on a fully transparent
+background. Premium product photography, sharp focus, high contrast,
+cinematic.
 ```
 
-> ⚠️ **Fundo transparente é obrigatório** aqui. Com fundo branco, o livro vira
-> um retângulo branco no meio do azul-noite.
+> ⚠️ **Fundo transparente é obrigatório.** Fundo branco vira um retângulo
+> branco no meio do preto.
 
 ---
 
-## 2. `livro-aberto.jpg` — páginas internas · 1600 × 1100 · JPG
+## 2. `livro-aberto.jpg` — o livro aberto · 1800 × 1150 · JPG (bem horizontal)
 
-Mostra que o miolo é bonito. É a prova visual de que não é apostila.
+Esta é a imagem mais importante da versão 2. Ela recebe dois painéis por cima
+(o argumento à esquerda, o sumário dourado à direita), então precisa ser
+**escura e vazia no meio**, com o livro ocupando a largura toda.
 
-**Melhor caminho:** tire um print real de duas páginas do seu ebook e coloque
-num mockup de livro aberto. Print real convence mais que IA.
-
-**Prompt alternativo:**
 ```
-An open book lying flat on a dark surface, seen from above at a slight angle.
-Warm cream pages with elegant typography. A single dried leaf and a small
-brass compass resting beside it. Deep midnight-blue background, warm amber
-light falling across the pages from the left. Cinematic, premium, cozy.
-Shallow depth of field.
+An open book photographed from directly above, lying on a dark walnut surface.
+Warm amber light falling across the pages from the left, deep shadows at the
+edges. A dried palm leaf and a small brass compass resting beside it.
+Very dark, moody, cinematic, high contrast. The pages are warm cream. Wide
+horizontal framing with the book filling the frame edge to edge.
 ```
+
+**Se ficar clara demais**, escureça no Canva (brilho −20, contraste +15) ou
+peça "darker, more shadow, low key lighting" no prompt. Os painéis brancos e
+dourados precisam de fundo escuro pra respirar.
 
 ---
 
-## 3, 4, 5. `leitor-01/02/03.jpg` — os três perfis · 800 × 1000 · JPG (vertical)
+## 3, 4, 5. `retrato-01/02/03.png` — os três perfis · 700 × 700 · PNG **transparente**
 
-Pessoas reais, não banco de imagem genérico sorrindo pro nada. Devem parecer
-brasileiras, em situação cotidiana, com **tom azulado/quente** pra casar com a
-página.
+Diferente da v1 (que pedia foto), aqui são **ilustrações em linha**, como na
+referência que você me mandou: traço fino, contínuo, sobre transparente.
+Fica muito mais coeso com o preto brilhante do que foto de banco de imagem.
 
-- **`leitor-01`** — alguém no aeroporto com mochila, olhando o painel de voos.
-  Expressão de expectativa, um pouco perdida. 25–35 anos.
-- **`leitor-02`** — alguém no sofá ou no café com o celular, cara de cansaço
-  com o app de idioma. 30–40 anos.
-- **`leitor-03`** — alguém lendo no ônibus ou na cama, luz de abajur, tranquilo.
-  45–60 anos.
-
-**Base de prompt** (troque a descrição da cena):
+**Base de prompt** (troque só a descrição):
 ```
-Candid documentary photograph of a Brazilian person [DESCRIÇÃO DA CENA].
-Natural light with warm amber tones and deep blue shadows. Shot on 35mm,
-shallow depth of field, muted cinematic color grading. Vertical framing,
-realistic, not posed, no eye contact with camera.
+A single-line contour illustration of a person's head and shoulders in
+profile, drawn with one continuous thin white line. Minimalist, elegant,
+no shading, no fill. Fully transparent background. Modern editorial
+illustration style, clean and confident linework.
 ```
 
-> 💡 Alternativa que fica ótima e é mais barata: ilustrações em **linha dourada
-> sobre azul-noite**, no mesmo traço da capa. Fica mais coeso com a marca e
-> evita o visual de banco de imagem. Se for por esse caminho, use o mesmo
-> prompt da capa trocando o objeto pela cena.
+- **`retrato-01`** — Marina, 27 anos, mulher jovem de perfil, cabelo preso,
+  mochila na alça do ombro
+- **`retrato-02`** — Rafael, 34 anos, homem de perfil, barba curta, fone de
+  ouvido no pescoço
+- **`retrato-03`** — Célia, 58 anos, mulher de perfil, cabelo curto, óculos
+  de leitura
+
+> Peça **três de uma vez, no mesmo prompt-base**, pra o traço ficar igual nas
+> três. Traço diferente entre os cards estraga o conjunto.
+>
+> Se a IA insistir em colocar fundo, gere em branco sobre preto e remova o
+> fundo depois (o Canva faz, e o remove.bg também).
 
 ---
 
-## 6. `autor.jpg` — sua foto · 800 × 800 · JPG (quadrada)
+## 6. `autor.jpg` — sua foto · 800 × 800 · JPG
 
-**Foto sua de verdade.** Nada de IA aqui — é a seção de confiança da página.
+**Foto sua de verdade**, nada de IA — é a seção de confiança.
 
-- Enquadramento do peito pra cima, olhando pra câmera
-- Fundo simples (parede lisa, estante desfocada, rua fora de foco)
-- Luz natural, de dia, perto de uma janela
-- Expressão aberta, sem pose de foto 3x4
+Nesta versão o fundo da página é escuro, então **prefira uma foto com fundo
+escuro** ou escurecido: parede em sombra, ambiente noturno, luz lateral.
+Foto com fundo branco estourado vai brigar com o resto da página.
 
 ---
 
 ## 7. `og-image.jpg` — prévia de compartilhamento · 1200 × 630 · JPG
 
-É o cartãozinho que aparece quando alguém cola o link no WhatsApp, no Insta ou
-no Telegram. Sem ele, o link fica cru e feio.
-
-Monte no Canva, em 1200 × 630, fundo azul-noite `#0D1826`:
-- A capa do livro à direita
-- À esquerda: **Real-Life English** (grande) + *Histórias para aprender inglês
-  de verdade* + selo `VOLUME 1 · A1–A2` em âmbar
-- Sem texto pequeno — no WhatsApp isso aparece em miniatura
+O cartãozinho que aparece quando colam o link no WhatsApp. Monte no Canva
+com fundo `#08080A`:
+- Capa do livro à direita, com um brilho âmbar atrás
+- À esquerda: **REAL-LIFE ENGLISH** em caixa alta, larga e pesada +
+  *Histórias para aprender inglês de verdade* + selo `VOLUME 1 · A1–A2`
+- Nada de texto pequeno — no WhatsApp isso vira miniatura
 
 ---
 
 ## 8. `favicon.png` — ícone da aba · 512 × 512 · PNG
 
-Simples e legível a 16 px. Sugestão: as iniciais **GJ** em âmbar sobre o
-azul-noite, ou só o aviãozinho em linha dourada. Nada de detalhe fino — some.
-
----
-
-## 9. `depoimento-1.jpg` a `depoimento-3.jpg` — 200 × 200 · JPG
-
-**Só depois que você tiver depoimentos reais de alunos de verdade**, com
-autorização deles. Foto de perfil quadrada, recorte no rosto.
-
-Enquanto não tiver, a seção de depoimentos aparece marcada como espaço
-reservado — e você pode simplesmente apagar a `<section id="depoimentos">`
-do `index.html` se quiser lançar sem ela.
+As iniciais **GJ** em âmbar sobre o quase-preto, no mesmo desenho do marcador
+redondo do menu. Legível a 16 px.
 
 ---
 
 ## Como salvar
 
-Coloque tudo em:
-
 ```
 landing/assets/img/
 ├── hero-book.png
 ├── livro-aberto.jpg
-├── leitor-01.jpg
-├── leitor-02.jpg
-├── leitor-03.jpg
+├── retrato-01.png
+├── retrato-02.png
+├── retrato-03.png
 ├── autor.jpg
 ├── og-image.jpg
 └── favicon.png
 ```
 
-Nome exato, minúsculo, sem acento e sem espaço. Depois é só abrir o
-`index.html` no navegador — as imagens entram no lugar sozinhas.
-
-**Antes de subir, comprima tudo** em [squoosh.app](https://squoosh.app) ou
-[tinypng.com](https://tinypng.com). Mire em menos de 300 KB por imagem: página
-de vendas lenta perde venda, e a maioria das pessoas vai abrir pelo celular no
-4G.
+Nome exato, minúsculo, sem acento e sem espaço. Depois comprima tudo em
+[squoosh.app](https://squoosh.app) — mire em menos de 300 KB por imagem.

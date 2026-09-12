@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Real-Life English — Volume 1
+   Real-Life English — Volume 1 · VERSÃO 2 "Vitrine"
    Scripts da landing page
    ========================================================================== */
 (function () {
@@ -13,8 +13,7 @@
     // os botões de compra levam pra seção de preço.
     checkoutUrl: '',
 
-    // Preço exibido. Trocar aqui atualiza a barra fixa do celular também.
-    // O valor que aparece no cartão está no index.html (procure por "EDITAR: preço").
+    // Moeda usada nos textos de preço.
     currency: 'R$'
   };
 
@@ -270,6 +269,7 @@
 
   var yearEl = $('[data-year]');
   if (yearEl) { yearEl.textContent = new Date().getFullYear(); }
+
 
   /* ========================================================================
      6. Copiar o prompt do tutor
