@@ -9,7 +9,11 @@ landing/
 ├── index.html            ← a página
 ├── termos.html           ← modelo a preencher
 ├── privacidade.html      ← modelo a preencher
+├── _headers              ← cabeçalhos de segurança (Netlify/Cloudflare)
+├── vercel.json           ← os mesmos, para a Vercel
 ├── assets/
+│   ├── fonts/            ← fontes servidas daqui, não do Google
+│   ├── css/fonts.css     ← as declarações delas
 │   ├── css/styles.css    ← o visual
 │   ├── css/motion.css    ← a camada de movimento
 │   ├── css/opening.css   ← a sequência do livro no topo
@@ -233,6 +237,112 @@ mesmo visual. Serve para duas coisas: confirmar que deu certo (reduz o e-mail de
 - [ ] Conferir se o preço no checkout é **exatamente** o que está na página
 - [ ] Testar o botão no celular, não só no computador
 - [ ] Pedir o reembolso dessa compra teste, para ver o fluxo que seu aluno veria
+
+---
+
+---
+
+## Segurança
+
+Esta página foi revisada com ela em mente: dinheiro passa perto, e o comprador
+precisa confiar no que vê. O resumo é que **a superfície de ataque aqui é
+minúscula**, e por um motivo estrutural.
+
+### Por que o risco é baixo por natureza
+
+Os vazamentos que se ouve falar acontecem onde há **dado guardado** e **código
+rodando no servidor**. Esta página não tem nem um nem outro:
+
+| | |
+|---|---|
+| Servidor com código | não existe — são arquivos estáticos |
+| Banco de dados | não existe |
+| Formulário, login, senha | não existe |
+| Cookie, localStorage, rastreador | não usa |
+| Dado de cartão | **nunca toca nesta página** — quem processa é a Hotmart/Kiwify |
+
+Não há como "roubar o banco de dados" de uma página que não tem banco. Não há
+sessão para sequestrar, porque não há login. Os dados do comprador — nome,
+CPF, cartão — são digitados no checkout da plataforma, num domínio que não é o
+seu, sob a responsabilidade e a certificação deles.
+
+### O que foi feito
+
+**Nada carrega de fora.** A página não faz uma única requisição a outro
+domínio. As fontes, que antes vinham do Google, agora são servidas daqui
+(`assets/fonts/`). Isso fecha uma porta real: quando o navegador busca fonte no
+Google, ele entrega a um terceiro o IP e o navegador de quem está lendo — dado
+pessoal, coletado sem consentimento e sem constar na sua política de
+privacidade. Sob a LGPD isso é um problema evitável, e evitamos.
+
+**Política de segurança de conteúdo (CSP).** O navegador recebe uma regra
+explícita: só execute script, só carregue estilo, fonte e imagem que venham
+deste domínio. Se alguém conseguisse injetar um `<script>` de fora, o navegador
+recusaria. Para a regra ser estrita de verdade, **todo estilo inline foi
+removido** do HTML — sem isso, seria preciso permitir `unsafe-inline`, que é
+justamente a folga que um ataque de injeção usa.
+
+**Cabeçalhos de proteção**, em `_headers` (Netlify, Cloudflare Pages) e
+`vercel.json` (Vercel):
+
+- `X-Frame-Options: DENY` e `frame-ancestors 'none'` — impedem que golpista
+  embuta sua página num iframe e sobreponha um botão falso por cima
+  (*clickjacking*). Para uma página que leva ao pagamento, isso importa.
+- `X-Content-Type-Options: nosniff` — o navegador não "adivinha" o tipo de um
+  arquivo, o que impede que uma imagem seja tratada como script.
+- `Referrer-Policy` — sites de destino não recebem o caminho completo de onde
+  a pessoa veio.
+- `Strict-Transport-Security` — depois da primeira visita, o navegador se
+  recusa a abrir seu site sem HTTPS.
+
+**JavaScript auditado.** Os dois pontos que montam HTML por string foram
+conferidos: um insere um número inteiro (a contagem de palavras), o outro
+limpa um elemento. Todo texto que vem da página é inserido com `textContent`,
+que não interpreta marcação. **A página não lê nada da URL, de cookie ou de
+storage** — não existe entrada por onde injetar.
+
+### O que não dá para impedir, e por que tudo bem
+
+**Copiar o visual da página.** Não existe forma de impedir, em site nenhum:
+HTML, CSS e JavaScript são entregues ao navegador de quem visita, senão a
+página não aparece. Bloquear botão direito ou F12 não protege nada e só irrita
+quem é honesto.
+
+Mas repare no que um clone *não* consegue fazer:
+
+- **Não desvia sua venda.** O link de checkout aponta para o *seu* produto. Se
+  o golpista copiar a página inteira e não trocar o link, ele vende para você.
+- **Não rouba dado seu.** Não há dado nesta página além do que já é público.
+
+O risco real de um clone é outro: alguém copia sua página, **troca o link de
+checkout** e aplica golpe nos *seus* compradores, sujando seu nome. Contra isso
+não existe defesa técnica no código — a defesa é ter **domínio próprio
+reconhecível**, dizer nas suas redes qual é o endereço oficial, e acionar
+remoção por direito autoral se aparecer um clone. Domínio próprio é, aqui, uma
+medida de segurança, não só de estética.
+
+### O que muda se você adicionar coisas depois
+
+- **Pixel do Facebook, Google Analytics ou qualquer rastreador**: vai quebrar
+  na CSP, de propósito. Para liberar, acrescente o domínio dele em `script-src`
+  e `connect-src` nos dois arquivos de cabeçalho e no `<meta>` do HTML. E aí
+  passa a valer o outro lado: rastreador coleta dado pessoal, e isso precisa
+  estar na sua política de privacidade e, dependendo do que você usar, num
+  aviso de cookies.
+- **Formulário de e-mail**: hoje `form-action` está em `'none'`. Se colocar
+  captura de lead, libere o destino.
+- **Vídeo do YouTube ou Vimeo**: precisa liberar `frame-src`.
+
+Em todos os casos, o princípio é o mesmo: libere **o domínio específico**, não
+`*`.
+
+### Antes de publicar
+
+- [ ] HTTPS ativo — Netlify, Vercel e Cloudflare Pages fazem sozinhos
+- [ ] Conferir os cabeçalhos depois no ar em
+      [securityheaders.com](https://securityheaders.com)
+- [ ] Confirmar que o link do botão abre o checkout do **seu** produto
+- [ ] Se adicionar rastreador, atualizar `privacidade.html` antes
 
 ---
 

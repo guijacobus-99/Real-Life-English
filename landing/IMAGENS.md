@@ -2,9 +2,10 @@
 
 ## ⬇️ Baixe tudo de uma vez
 
-As oito imagens estão prontas, num único zip:
-
-**https://d2ol7oe51mr4n9.cloudfront.net/user_3Gz71cp9ZtxZzUxgVU953G5NBJr/83f26861-68cc-4204-be18-2a03270ddddb.zip**
+As oito imagens estão prontas, num único zip. **O link foi entregue na
+conversa**, e não fica aqui de propósito: este repositório é público, e a URL
+carrega o identificador da sua conta no serviço que gerou as imagens. Se você
+perder o link, peça de novo.
 
 Descompacte e arraste os arquivos (menos o `LEIA-ME.txt`) para
 `landing/assets/img/`. Os nomes já estão como a página espera — os retângulos

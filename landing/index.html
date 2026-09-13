@@ -4,6 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<!-- Política de segurança: nada carrega de fora deste domínio.
+     Os cabeçalhos de verdade estão em _headers / vercel.json; este
+     meta é a rede de segurança caso a hospedagem não os aplique.
+     frame-ancestors não entra aqui: só funciona como cabeçalho. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; connect-src 'self'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
 <title>Real-Life English — Volume 1</title>
 <meta name="description" content="Aprenda o inglês que você realmente usa no dia a dia: 40 histórias de situações reais, tradução em um toque e um tutor de IA que corrige você. Nível iniciante (A1–A2).">
 
@@ -18,9 +25,7 @@
 <meta name="twitter:card" content="summary_large_image">
 
 <link rel="icon" href="assets/img/favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/css/fonts.css">
 <link rel="stylesheet" href="assets/css/styles.css">
 <link rel="stylesheet" href="assets/css/motion.css">
 <link rel="stylesheet" href="assets/css/opening.css">
@@ -179,7 +184,7 @@
      PROBLEMA
      ========================================================================== -->
 <section class="section section--tight">
-  <div class="glow glow--cool" style="width:420px;height:420px;left:-8%;top:10%" aria-hidden="true"></div>
+  <div class="glow glow--cool glow--problema" aria-hidden="true"></div>
   <div class="wrap problem__grid">
     <h2 class="problem__quote">Você sabe as regras. Mas na hora de falar, <em>trava</em>.</h2>
     <div class="problem__body">
@@ -194,7 +199,7 @@
      MAIS SOBRE O LIVRO — foto com painéis sobrepostos
      ========================================================================== -->
 <section class="section" id="livro">
-  <div class="glow glow--amber" style="width:560px;height:420px;left:50%;top:0;transform:translateX(-50%)" aria-hidden="true"></div>
+  <div class="glow glow--amber glow--livro" aria-hidden="true"></div>
   <div class="wrap">
     <div class="section-head section-head--center">
       <p class="eyebrow">O livro</p>
@@ -359,7 +364,7 @@
      O QUE VEM DENTRO
      ========================================================================== -->
 <section class="section" id="dentro">
-  <div class="glow glow--amber" style="width:500px;height:380px;right:-6%;top:16%" aria-hidden="true"></div>
+  <div class="glow glow--amber glow--dentro" aria-hidden="true"></div>
   <div class="wrap">
     <div class="section-head">
       <p class="eyebrow">O que você recebe</p>
@@ -486,7 +491,7 @@ Não use termos técnicos de gramática.</div>
     </div>
 
     <p class="editor-note">
-      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" style="flex:none;margin-top:4px"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.8v4M8 10.9v.4" stroke-linecap="round"/></svg>
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.8v4M8 10.9v.4" stroke-linecap="round"/></svg>
       <span>Nota pro Gui: seção vazia de propósito. Só depoimento real, com autorização de quem escreveu.</span>
     </p>
   </div>
@@ -517,7 +522,7 @@ Não use termos técnicos de gramática.</div>
      OFERTA
      ========================================================================== -->
 <section class="section offer" id="oferta">
-  <div class="glow glow--amber" style="width:640px;height:460px;left:50%;top:4%;transform:translateX(-50%)" aria-hidden="true"></div>
+  <div class="glow glow--amber glow--oferta" aria-hidden="true"></div>
   <div class="wrap">
     <div class="section-head section-head--center">
       <p class="eyebrow">A oferta</p>
@@ -608,7 +613,7 @@ Não use termos técnicos de gramática.</div>
     <h2 class="final__title">Da próxima vez que pedirem seu nome no café, você <em>responde</em>.</h2>
     <p class="lede">40 histórias. Sete capítulos. Um tutor sempre disponível. E nenhuma lista de verbo irregular pra decorar.</p>
     <a class="btn btn--primary btn--lg" href="#oferta" data-cta="final">Garantir meu Volume 1</a>
-    <p class="price__terms" style="margin-top:1.2rem">Acesso imediato · Garantia de 7 dias</p>
+    <p class="price__terms price__terms--after">Acesso imediato · Garantia de 7 dias</p>
   </div>
 </section>
 

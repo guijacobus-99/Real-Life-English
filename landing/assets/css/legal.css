@@ -1,0 +1,22 @@
+/* ==========================================================================
+   Páginas de termos e privacidade
+   --------------------------------------------------------------------------
+   Era um <style> embutido em cada uma das duas. Virou arquivo para que a CSP
+   possa proibir estilo inline sem quebrar nada.
+   ========================================================================== */
+  body { background: var(--void); padding-block: 0; }
+  .legal { padding-block: clamp(3rem, 7vw, 5rem); max-width: 760px; }
+  .legal h1 { font-size: clamp(2rem, 5vw, 2.8rem); margin-bottom: .8rem; }
+  .legal h2 { font-size: 1.25rem; margin-top: 2.4rem; }
+  .legal p, .legal li { color: var(--text-2); line-height: 1.75; }
+  .legal p + p { margin-top: .9rem; }
+  .legal ul { padding-left: 1.1rem; display: grid; gap: .5rem; margin-top: .8rem; }
+  .legal a { color: var(--amber); }
+  .fill { color: var(--amber-hi); font-family: var(--mono); font-size: .85em; }
+  .legal .editor-note { margin-bottom: 2.5rem; }
+  .back { font-family: var(--mono); font-size: var(--f-xs); letter-spacing: .1em;
+          text-transform: uppercase; color: var(--text-3); text-decoration: none;
+          display: inline-block; margin-bottom: 2rem; }
+  .back:hover { color: var(--amber); }
+.editor-note--top { margin-top: 1.5rem; }
+.legal__date { margin-top: 2.5rem; }

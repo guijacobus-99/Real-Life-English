@@ -1167,3 +1167,18 @@ a { color: inherit; }
     transition-duration: .01ms !important;
   }
 }
+
+/* --------------------------------------------------------------------------
+   22. Posições das luzes e ajustes finos
+   --------------------------------------------------------------------------
+   Estas regras existiam como atributos style= no HTML. Saíram de lá para que
+   a política de segurança (CSP) possa proibir estilo inline por completo —
+   sem 'unsafe-inline', a única folga que um ataque de injeção teria.
+   -------------------------------------------------------------------------- */
+.glow--problema { width: 420px; height: 420px; left: -8%;  top: 10%; }
+.glow--livro    { width: 560px; height: 420px; left: 50%;  top: 0;   transform: translateX(-50%); }
+.glow--dentro   { width: 500px; height: 380px; right: -6%; top: 16%; }
+.glow--oferta   { width: 640px; height: 460px; left: 50%;  top: 4%;  transform: translateX(-50%); }
+
+.price__terms--after { margin-top: 1.2rem; }
+.editor-note > svg { flex: none; margin-top: 4px; }
