@@ -1,0 +1,21 @@
+# Real-Life English — regras para robôs bem-comportados
+#
+# Importante entender o que este arquivo é: um PEDIDO, não uma barreira.
+# Buscador sério respeita; robô mal-intencionado ignora e nem lê. A defesa
+# contra robô ruim acontece na borda da hospedagem, antes da página carregar
+# (ver a seção "Robôs e tráfego de anúncio" no README).
+
+# Buscadores: entrem à vontade. Você QUER aparecer no Google.
+User-agent: *
+Allow: /
+
+# Raspadores de conteúdo para treino de modelo. Bloquear é opcional e é
+# escolha sua: eles respeitam o pedido, mas não trazem visita nenhuma.
+# Para liberar, apague as quatro linhas abaixo.
+User-agent: GPTBot
+User-agent: CCBot
+User-agent: ClaudeBot
+Disallow: /
+
+# TROCAR pelo domínio real antes de publicar
+Sitemap: https://seudominio.com.br/sitemap.xml

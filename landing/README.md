@@ -9,6 +9,7 @@ landing/
 ├── index.html            ← a página
 ├── termos.html           ← modelo a preencher
 ├── privacidade.html      ← modelo a preencher
+├── robots.txt            ← o que buscador e raspador podem fazer
 ├── _headers              ← cabeçalhos de segurança (Netlify/Cloudflare)
 ├── vercel.json           ← os mesmos, para a Vercel
 ├── assets/
@@ -336,6 +337,120 @@ medida de segurança, não só de estética.
 Em todos os casos, o princípio é o mesmo: libere **o domínio específico**, não
 `*`.
 
+### Robôs e tráfego de anúncio
+
+Quem vai anunciar naturalmente se pergunta se não deveria colocar um
+reCAPTCHA. A resposta aqui é **não**, e vale entender o porquê antes de
+decidir o contrário.
+
+#### Por que reCAPTCHA não funciona nesta página
+
+O reCAPTCHA v3 — o invisível, que dá uma nota de 0 a 1 para o visitante —
+trabalha em cinco passos:
+
+1. O script do Google observa o comportamento na página
+2. Gera um token
+3. A página manda esse token **para o seu servidor**
+4. **Seu servidor** pergunta ao Google, com sua chave secreta, quanto vale o token
+5. **Seu servidor** decide: passa ou bloqueia
+
+**Os passos 3, 4 e 5 precisam de um servidor seu, e esta página não tem** —
+são arquivos estáticos num CDN. Sem eles, a nota é calculada e jogada fora.
+Um robô simplesmente não executa o script, e nada acontece: não há nada para
+bloquear, porque não há nada acontecendo depois.
+
+Verificação feita só no navegador nunca protege. O navegador é do visitante;
+quem quer burlar, burla.
+
+#### E o que ele custaria
+
+Não é neutro instalar mesmo assim:
+
+- **Devolve o Google ao seu site.** Acabamos de tirar as fontes do Google
+  justamente para não entregar o IP de cada leitor a um terceiro. O
+  reCAPTCHA faz isso e mais: ele existe para perfilar comportamento, e roda
+  em **todas** as páginas, não só onde há formulário. Isso reabre a questão
+  de LGPD que fechamos.
+- **Quebra a CSP** que fechamos, e obriga a afrouxá-la.
+- **Pesa** — é um dos scripts mais gordos que se instala numa página.
+- **Derruba conversão.** Em página de vendas, todo atrito custa venda.
+
+Ou seja: pagaria o preço todo e não compraria proteção nenhuma.
+
+#### O que esta página oferece de superfície
+
+Vale ver o tamanho real do problema:
+
+| | |
+|---|---|
+| Formulário | nenhum |
+| Campo de digitação | nenhum |
+| Envio de dados | nenhum |
+| Login ou sessão | nenhum |
+| Endpoint próprio | nenhum |
+
+Um robô que visite esta página consegue **baixar 500 KB de arquivo estático**.
+Só isso. Não há o que floodar, porque não há nada que receba dados.
+
+#### O que de fato resolve o que você teme
+
+**1. Ponha o site atrás da Cloudflare — é lá que robô se barra.**
+
+Hospedando no **Cloudflare Pages** (grátis) ou apontando seu domínio para a
+Cloudflare, você liga no painel:
+
+- **Bot Fight Mode** — barra robô conhecido na borda, antes de chegar na página
+- **Proteção contra DDoS** — automática, sem configurar
+- **Rate limiting** — corta excesso de requisição do mesmo endereço
+
+Isso é a "verificação de humano" que você quer, só que no lugar certo: **antes**
+da página, não dentro dela. E não atrapalha quem é gente.
+
+> **Se o seu medo é flood, esta é a razão decisiva para escolher Cloudflare
+> Pages:** o plano grátis tem **banda ilimitada**. Na Netlify e na Vercel o
+> plano grátis tem teto de tráfego, então um flood grande pode te gerar conta
+> ou tirar o site do ar. Na Cloudflare, não vira despesa.
+
+**2. Clique inválido é problema do anunciante, e eles já cuidam.**
+
+Google Ads e Meta Ads detectam tráfego inválido e **estornam** o que foi
+cobrado indevidamente. Acompanhe a coluna de cliques inválidos no relatório.
+Se aparecer padrão estranho que eles não pegaram, dá para abrir contestação —
+e isso se resolve na plataforma de anúncio, não no HTML.
+
+**3. Fraude de cartão não é sua.**
+
+Teste de cartão roubado acontece no checkout, que é da Hotmart/Kiwify, com o
+antifraude deles. Nada disso passa por aqui.
+
+**4. Quando tiver analytics, filtre robô.**
+
+Ative a exclusão de robôs conhecidos na ferramenta. Isso não é segurança — é
+não deixar seu relatório mentir sobre a conversão.
+
+#### O dia em que o CAPTCHA vai fazer sentido
+
+Quando você adicionar **formulário** — captura de e-mail, lista de espera,
+contato. Aí existe algo que recebe dados, e aí sim precisa de proteção.
+
+Quando esse dia chegar, o caminho é **Cloudflare Turnstile**, não reCAPTCHA:
+faz a mesma coisa (invisível, com pontuação), é grátis, e **não entrega seus
+visitantes ao Google** — mantém a conformidade que a página tem hoje. E o
+servidor que falta para validar o token você ganha junto: **Pages Functions**,
+incluso no plano grátis da Cloudflare.
+
+Me chame quando chegar lá que eu monto — formulário, Turnstile e a validação
+no servidor, de uma vez.
+
+#### robots.txt
+
+Existe no projeto, e faz o que dá para fazer: pede aos buscadores que indexem
+(você quer aparecer no Google) e pede aos raspadores de treino de IA que não
+copiem. **É um pedido, não uma trava** — robô sério respeita, robô ruim nem
+lê o arquivo. Está lá por higiene e por causa do SEO, não como defesa.
+
+---
+
 ### Antes de publicar
 
 - [ ] HTTPS ativo — Netlify, Vercel e Cloudflare Pages fazem sozinhos
@@ -343,6 +458,8 @@ Em todos os casos, o princípio é o mesmo: libere **o domínio específico**, n
       [securityheaders.com](https://securityheaders.com)
 - [ ] Confirmar que o link do botão abre o checkout do **seu** produto
 - [ ] Se adicionar rastreador, atualizar `privacidade.html` antes
+- [ ] Trocar o domínio no `robots.txt`
+- [ ] Se for anunciar, ligar o Bot Fight Mode na Cloudflare
 
 ---
 
