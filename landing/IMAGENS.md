@@ -1,5 +1,20 @@
 # Imagens da página — o que já tem e o que falta
 
+## ⬇️ Baixe tudo de uma vez
+
+As oito imagens estão prontas, num único zip:
+
+**https://d2ol7oe51mr4n9.cloudfront.net/user_3Gz71cp9ZtxZzUxgVU953G5NBJr/83f26861-68cc-4204-be18-2a03270ddddb.zip**
+
+Descompacte e arraste os arquivos (menos o `LEIA-ME.txt`) para
+`landing/assets/img/`. Os nomes já estão como a página espera — os retângulos
+tracejados somem sozinhos. A sua foto (`autor.jpg`) já está na pasta e não
+vem no zip.
+
+**O fundo do `hero-book` já foi recortado** — ele vem transparente, não
+precisa passar por removedor.
+
+
 Onde falta arte, a página mostra um **retângulo tracejado** com o nome do
 arquivo e o tamanho. Salve a imagem com o nome exato em
 `landing/assets/img/` e o placeholder some sozinho.
@@ -15,14 +30,14 @@ não casa — tudo tem que ser escuro e de luz quente.
 
 | # | Arquivo | Tamanho | Formato | Onde | Prioridade |
 |---|---------|---------|---------|------|------------|
-| 1 | `hero-book.png` | 1200 × 1500 | PNG transparente | Palco do topo | ✅ gerada (falta recortar) |
-| 2 | `livro-aberto.jpg` | 1800 × 1150 | JPG | "Mais sobre o Volume 1" | ✅ gerada |
-| 3 | `retrato-01.png` | 700 × 700 | PNG (fundo preto serve) | Perfil Marina | ✅ gerada |
-| 4 | `retrato-02.png` | 700 × 700 | PNG (fundo preto serve) | Perfil Rafael | ✅ gerada |
-| 5 | `retrato-03.png` | 700 × 700 | PNG (fundo preto serve) | Perfil Célia | ✅ gerada |
+| 1 | `hero-book.webp` | 900 px larg. | WebP transparente | Palco do topo | ✅ **pronta, já recortada** |
+| 2 | `livro-aberto.webp` | 1800 × 1150 | WebP | "Mais sobre o Volume 1" | ✅ pronta |
+| 3 | `retrato-01.webp` | 700 × 700 | WebP (fundo preto serve) | Perfil Marina | ✅ pronta |
+| 4 | `retrato-02.webp` | 700 × 700 | WebP (fundo preto serve) | Perfil Rafael | ✅ pronta |
+| 5 | `retrato-03.webp` | 700 × 700 | WebP (fundo preto serve) | Perfil Célia | ✅ pronta |
 | 6 | `autor.jpg` | 800 × 800 | JPG | "Oi, eu sou o Gui" | ✅ **pronta, já na pasta** |
-| 7 | `og-image.jpg` | 1200 × 630 | JPG | Prévia no WhatsApp | ✅ base gerada |
-| 8 | `favicon.png` | 512 × 512 | PNG | Ícone da aba | ✅ gerada |
+| 7 | `og-image.jpg` | 1200 × 630 | JPG | Prévia no WhatsApp | ⚠️ base pronta, **falta o texto** |
+| 8 | `favicon.png` | 256 × 256 | PNG | Ícone da aba | ✅ pronta |
 
 ---
 
