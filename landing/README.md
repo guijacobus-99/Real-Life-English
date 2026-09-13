@@ -12,6 +12,7 @@ landing/
 ├── assets/
 │   ├── css/styles.css    ← o visual
 │   ├── css/motion.css    ← a camada de movimento
+│   ├── css/opening.css   ← a sequência do livro no topo
 │   ├── js/main.js        ← configuração + interações
 │   ├── js/motion.js      ← movimento que o CSS não faz sozinho
 │   └── img/              ← as imagens (ver IMAGENS.md)
@@ -126,27 +127,50 @@ python3 -m http.server 8000
 
 | # | Seção | O que faz |
 |---|-------|-----------|
-| 1 | Palco (hero) | Logotipo grande, 3 checks, botão brilhante, bloco de vagas, livro iluminado com os cartões "antes/depois" |
-| 2 | Números | 40 · 7 · A1–A2 · 7 dias |
-| 3 | Problema | "Você sabe as regras, mas trava" |
-| 4 | **Mais sobre o Volume 1** | Foto do livro aberto com o argumento à esquerda e o sumário dourado à direita |
-| 5 | **Experimente** | Demonstração ao vivo do toque-pra-traduzir |
-| 6 | Pra quem é | Os 3 perfis com ilustração, dados e objetivo |
-| 7 | O que vem dentro | 7 peças em grade |
-| 8 | Tutor de IA | Prompt real com botão de copiar |
-| 9 | Depoimentos | (reservado) |
-| 10 | Autor | Sua história |
-| 11 | Oferta | Preço, o que inclui, garantia |
-| 12 | Dúvidas | 7 perguntas |
-| 13 | Fechamento | Última chamada |
+| 1 | **Abertura** | Logotipo, 3 checks, botão e bônus — e o livro, que gira, abre e vira a página que você lê |
+| 2 | Problema | "Você sabe as regras, mas trava" |
+| 3 | **Mais sobre o Volume 1** | Foto do livro aberto com o argumento à esquerda e o sumário dourado à direita |
+| 4 | **Experimente** | Demonstração ao vivo do toque-pra-traduzir |
+| 5 | Pra quem é | Os 3 perfis com ilustração, dados e objetivo |
+| 6 | O que vem dentro | 7 peças em grade |
+| 7 | Tutor de IA | Prompt real com botão de copiar |
+| 8 | Depoimentos | (reservado) |
+| 9 | Autor | Sua história |
+| 10 | Oferta | Preço, o que inclui, garantia |
+| 11 | Dúvidas | 7 perguntas |
+| 12 | Fechamento | Última chamada |
 
 ### Os dois momentos que carregam a página
 
-**O palco do livro (seção 1).** O livro é iluminado por baixo com uma luz
-âmbar difusa, e dois cartões flutuam ao redor mostrando a mesma pergunta —
-*"What can I get you?"* — com duas respostas: a de antes (você trava) e a de
-depois (você responde). É a promessa inteira em dois cartões, sem precisar
+**A abertura (seção 1).** Começa como um hero comum: logotipo à esquerda, o
+livro fechado à direita, com dois cartões flutuando ao redor. Eles mostram a
+mesma pergunta — *"What can I get you?"* — com duas respostas: a de antes
+(você trava) e a de depois (você responde). É a promessa inteira sem precisar
 ler nada.
+
+Aí a pessoa começa a descer, e a seção não sai do lugar: o livro **dá uma
+volta completa** sobre o próprio eixo, **a capa gira sobre a lombada e abre**,
+o conjunto **caminha para a esquerda**, e a página direita — a que você
+estaria lendo, se o livro estivesse nas suas mãos — recebe os números do
+Volume 1 e o botão. A borda dessa página se dissolve no fundo, e por um
+instante a página do livro e a página do site são a mesma coisa.
+
+Subir o scroll desfaz tudo na ordem inversa. Isso não é um segundo efeito
+programado: a animação está **presa à posição da barra de rolagem**, não
+disparada por evento. Cada ponto do scroll corresponde a um quadro, então o
+filme roda para trás sozinho — e para no meio se você parar no meio.
+
+Duas coisas que vale saber:
+
+- **O livro da sequência é montado em CSS, não é a fotografia.** Uma foto não
+  tem verso nem miolo; não há como abri-la. A fotografia continua em uso como
+  estado de repouso de quem não recebe a animação.
+- **A sequência é coisa de tela larga** (a partir de 901 px) e de navegador
+  com animação presa ao scroll. No celular, no Firefox e para quem pediu menos
+  movimento, a seção vira um hero comum: fotografia do livro e, logo abaixo,
+  um cartão com os mesmos quatro números. Nada se perde.
+
+Para desligar só a sequência, apague a linha do `opening.css` no `<head>`.
 
 **O livro aberto (seção 4).** A foto recebe dois painéis por cima: à esquerda
 o argumento de por que história funciona, à direita os 7 capítulos num painel

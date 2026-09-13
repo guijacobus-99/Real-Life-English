@@ -91,7 +91,6 @@
   .section-head,
   .problem__quote,
   .problem__body,
-  .metric,
   .spread,
   .story,
   .tile,
@@ -115,17 +114,14 @@
      Sem linha do tempo temporal, o atraso vem de deslocar a faixa de
      scroll em que cada um anima. O efeito é o mesmo, e acompanha o
      movimento da mão em vez de ignorá-lo. */
-  .metrics   > .metric:nth-child(2),
   .tiles     > .tile:nth-child(2),
   .profiles  > .profile:nth-child(2),
   .quotes    > .quote:nth-child(2) { animation-range: entry 5% cover 36%; }
 
-  .metrics   > .metric:nth-child(3),
   .tiles     > .tile:nth-child(3),
   .profiles  > .profile:nth-child(3),
   .quotes    > .quote:nth-child(3) { animation-range: entry 5% cover 42%; }
 
-  .metrics > .metric:nth-child(4),
   .tiles   > .tile:nth-child(4)    { animation-range: entry 5% cover 48%; }
   .tiles   > .tile:nth-child(5)    { animation-range: entry 5% cover 54%; }
   .tiles   > .tile:nth-child(6)    { animation-range: entry 5% cover 60%; }

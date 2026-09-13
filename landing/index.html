@@ -23,6 +23,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="assets/css/styles.css">
 <link rel="stylesheet" href="assets/css/motion.css">
+<link rel="stylesheet" href="assets/css/opening.css">
 </head>
 <body>
 
@@ -55,87 +56,124 @@
 <main>
 
 <!-- ==========================================================================
-     HERO
+     ABERTURA — sequência presa ao scroll
+     --------------------------------------------------------------------------
+     A secão é alta de propósito: a altura extra é o "trilho" que a animação
+     percorre. O miolo fica grudado (sticky) enquanto o livro gira, abre e
+     desliza pra esquerda; a página direita então recebe o conteúdo.
+
+     Sem suporte a animação presa ao scroll (hoje, o Firefox), tudo isto vira
+     um hero comum: livro em foto à direita, números numa faixa embaixo.
+     Ver assets/css/opening.css.
      ========================================================================== -->
-<section class="hero" id="inicio">
-  <div class="wrap hero__grid">
+<section class="opening" id="inicio">
+  <div class="opening__sticky">
+    <div class="wrap opening__grid">
 
-    <div class="hero__copy">
-      <h1 class="hero__wordmark"><span class="dot" aria-hidden="true"></span>Real-Life<br>English</h1>
+      <div class="opening__copy">
+        <h1 class="hero__wordmark"><span class="dot" aria-hidden="true"></span>Real-Life<br>English</h1>
 
-      <p class="hero__sub">Aprenda o inglês que você realmente usa — em 40 histórias de situações que acontecem de verdade.</p>
+        <p class="hero__sub">Aprenda o inglês que você realmente usa — em 40 histórias de situações que acontecem de verdade.</p>
 
-      <ul class="hero__checks">
-        <li>
-          <svg width="19" height="19" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M4 10.4l3.6 3.6L16 5.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span>Histórias de situações reais</span>
-        </li>
-        <li>
-          <svg width="19" height="19" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M4 10.4l3.6 3.6L16 5.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span>Tradução em um toque</span>
-        </li>
-        <li>
-          <svg width="19" height="19" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M4 10.4l3.6 3.6L16 5.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span>Tutor de IA incluído</span>
-        </li>
-      </ul>
+        <ul class="hero__checks">
+          <li>
+            <svg width="19" height="19" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M4 10.4l3.6 3.6L16 5.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Histórias de situações reais</span>
+          </li>
+          <li>
+            <svg width="19" height="19" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M4 10.4l3.6 3.6L16 5.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Tradução em um toque</span>
+          </li>
+          <li>
+            <svg width="19" height="19" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M4 10.4l3.6 3.6L16 5.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Tutor de IA incluído</span>
+          </li>
+        </ul>
 
-      <div class="hero__actions">
-        <a class="btn btn--primary btn--lg" href="#oferta" data-cta="hero">Quero o Volume 1</a>
-        <a class="btn btn--glass" href="#historia">Ler uma história de graça</a>
-      </div>
-
-      <!-- ===== EDITAR: bônus de lançamento. Apague esta div inteira se não for dar o bônus. ===== -->
-      <div class="bonus">
-        <p class="bonus__title">As primeiras <b>50 compras</b> levam uma conversa de 15&nbsp;min comigo, pra montar seu plano de estudo.</p>
-        <p class="bonus__note">Ainda na dúvida? <a href="#historia">Leia uma história aqui na página</a> antes de decidir — sem cadastro, sem e-mail.</p>
-      </div>
-    </div>
-
-    <!-- palco do produto -->
-    <div class="stage">
-      <div class="stage__light" aria-hidden="true"></div>
-
-      <!-- IMAGEM 1 -->
-      <figure class="slot slot--book stage__book" data-ratio="4-5" data-slot="hero-book.webp&#10;mockup 3D da capa&#10;900 px de largura · WebP transparente">
-        <img src="assets/img/hero-book.webp" alt="Capa do ebook Real-Life English Volume 1">
-      </figure>
-
-      <div class="stage__floats">
-        <div class="float float--before">
-          <div class="float__tag">Antes</div>
-          <p class="float__line">— What can I get you?</p>
-          <div class="float__reply">…você trava</div>
+        <div class="hero__actions">
+          <a class="btn btn--primary btn--lg" href="#oferta" data-cta="hero">Quero o Volume 1</a>
+          <a class="btn btn--glass" href="#historia">Ler uma história de graça</a>
         </div>
 
-        <div class="float float--after">
-          <div class="float__tag">Depois</div>
-          <p class="float__line">— What can I get you?</p>
-          <div class="float__reply">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 8.4l3 3 7-7.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span>— A large coffee, please. To go.</span>
+        <!-- ===== EDITAR: bônus de lançamento. Apague esta div inteira se não for dar o bônus. ===== -->
+        <div class="bonus">
+          <p class="bonus__title">As primeiras <b>50 compras</b> levam uma conversa de 15&nbsp;min comigo, pra montar seu plano de estudo.</p>
+          <p class="bonus__note">Ainda na dúvida? <a href="#historia">Leia uma história aqui na página</a> antes de decidir — sem cadastro, sem e-mail.</p>
+        </div>
+      </div>
+
+      <!-- palco do produto -->
+      <div class="opening__stage stage">
+        <div class="stage__light" aria-hidden="true"></div>
+
+        <!-- O LIVRO — objeto 3D em CSS, pra poder girar e abrir de verdade -->
+        <div class="book" aria-hidden="true">
+          <div class="book__body">
+
+            <!-- página direita: aparece quando a capa abre -->
+            <div class="book__spread">
+              <div class="book__page">
+                <p class="book__eyebrow">Volume 1 · A1–A2</p>
+                <dl class="book__facts">
+                  <div><dt>40</dt><dd>histórias</dd></div>
+                  <div><dt>7</dt><dd>capítulos</dd></div>
+                  <div><dt>7</dt><dd>dias de garantia</dd></div>
+                  <div><dt>∞</dt><dd>acesso vitalício</dd></div>
+                </dl>
+                <p class="book__line">O inglês que acontece no aeroporto, no café, na loja e na rua — uma história por dia.</p>
+                <a class="btn btn--primary book__cta" href="#oferta" data-cta="livro">Quero o Volume 1</a>
+              </div>
+            </div>
+
+            <!-- capa: gira sobre a lombada -->
+            <div class="book__cover">
+              <div class="book__face book__front">
+                <span class="book__brand">Real-Life<br>English</span>
+                <svg class="book__mark" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+                  <path d="M8 62 L112 18 L74 104 L58 70 Z" stroke-linejoin="round"/>
+                  <path d="M8 62 L58 70 L112 18" stroke-linejoin="round"/>
+                  <circle cx="60" cy="60" r="52" stroke-dasharray="3 7" opacity=".45"/>
+                </svg>
+                <span class="book__vol">Volume 1 · Iniciante</span>
+              </div>
+              <div class="book__face book__back"></div>
+            </div>
+
+            <div class="book__spine" aria-hidden="true"></div>
           </div>
         </div>
+
+        <!-- mesma imagem, pra quem não recebe a animação -->
+        <figure class="slot slot--book stage__book" data-ratio="4-5" data-slot="hero-book.webp&#10;mockup 3D da capa&#10;900 px de largura · WebP transparente">
+          <img src="assets/img/hero-book.webp" alt="Capa do ebook Real-Life English Volume 1">
+        </figure>
+
+        <div class="stage__floats">
+          <div class="float float--before">
+            <div class="float__tag">Antes</div>
+            <p class="float__line">— What can I get you?</p>
+            <div class="float__reply">…você trava</div>
+          </div>
+
+          <div class="float float--after">
+            <div class="float__tag">Depois</div>
+            <p class="float__line">— What can I get you?</p>
+            <div class="float__reply">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 8.4l3 3 7-7.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>— A large coffee, please. To go.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="stage__seal" aria-hidden="true">
+          <b>1</b>
+          <span>história<br>por dia</span>
+        </div>
       </div>
 
-      <div class="stage__seal" aria-hidden="true">
-        <b>1</b>
-        <span>história<br>por dia</span>
-      </div>
     </div>
-
   </div>
 </section>
-
-<!-- ==========================================================================
-     NÚMEROS
-     ========================================================================== -->
-<div class="metrics">
-  <div class="metric"><b>40</b><span>histórias</span></div>
-  <div class="metric"><b>7</b><span>capítulos</span></div>
-  <div class="metric"><b>A1–A2</b><span>nível iniciante</span></div>
-  <div class="metric"><b>7</b><span>dias de garantia</span></div>
-</div>
 
 <!-- ==========================================================================
      PROBLEMA

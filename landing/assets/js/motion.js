@@ -4,11 +4,10 @@
    --------------------------------------------------------------------------
    O grosso do movimento está no motion.css, em animações nativas presas ao
    scroll — elas rodam na GPU e não travam a rolagem. Este arquivo cuida de
-   três coisas que precisam de JavaScript:
+   duas coisas que precisam de JavaScript:
 
      1. O holofote que segue o cursor nos cards
-     2. Os números da faixa que contam quando entram na tela
-     3. A barra de progresso e o fio lateral em navegadores que ainda não
+     2. A barra de progresso e o fio lateral em navegadores que ainda não
         têm animação presa ao scroll (hoje, o Firefox)
 
    Nada aqui esconde conteúdo. Se este arquivo não carregar, a página
@@ -50,46 +49,7 @@
   }, { passive: true });
 
   /* ========================================================================
-     2. Os números contam ao entrar na tela
-     ------------------------------------------------------------------------
-     O valor final já está escrito no HTML. Se nada disto rodar, ele aparece
-     direto — a contagem é enfeite, não conteúdo.
-     ======================================================================== */
-  function countUp(el, target) {
-    var start = null;
-    var dur = 900;
-
-    function frame(now) {
-      if (start === null) { start = now; }
-      var t = Math.min(1, (now - start) / dur);
-      var eased = 1 - Math.pow(1 - t, 3);         // desacelera no fim
-      el.textContent = Math.round(target * eased);
-      if (t < 1) { requestAnimationFrame(frame); }
-      else { el.textContent = target; }
-    }
-    requestAnimationFrame(frame);
-  }
-
-  if ('IntersectionObserver' in window) {
-    var numbers = $$('.metric b').filter(function (el) {
-      return /^\d+$/.test(el.textContent.trim());
-    });
-
-    if (numbers.length) {
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) { return; }
-          io.unobserve(entry.target);
-          countUp(entry.target, parseInt(entry.target.textContent.trim(), 10));
-        });
-      }, { threshold: 0.6 });
-
-      numbers.forEach(function (el) { io.observe(el); });
-    }
-  }
-
-  /* ========================================================================
-     3. Progresso e fio lateral onde o CSS ainda não chega
+     2. Progresso e fio lateral onde o CSS ainda não chega
      ------------------------------------------------------------------------
      Chrome, Edge e Safari novo prendem estas duas animações ao scroll pelo
      próprio CSS. No Firefox isso ainda não existe, então fazemos na mão.

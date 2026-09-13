@@ -109,7 +109,7 @@ a { color: inherit; }
   margin-inline: auto;
   background: var(--shell);
   position: relative;
-  overflow: hidden;
+  overflow: clip;
 }
 @media (min-width: 1180px) {
   body { background: #030304; padding-block: 26px; }
@@ -192,7 +192,7 @@ a { color: inherit; }
   border-radius: 999px;
   text-decoration: none;
   cursor: pointer;
-  overflow: hidden;
+  overflow: clip;
   transition: transform .3s var(--ease), box-shadow .3s var(--ease), filter .3s var(--ease);
 }
 
@@ -288,7 +288,7 @@ a { color: inherit; }
 .hero {
   position: relative;
   padding-block: clamp(6.5rem, 12vw, 9rem) clamp(3.5rem, 7vw, 5.5rem);
-  overflow: hidden;
+  overflow: clip;
 }
 .hero::before {
   /* feixe de luz vindo de cima, como vitrine */
@@ -507,41 +507,6 @@ a { color: inherit; }
 .slot--book { filter: drop-shadow(0 50px 55px rgba(0,0,0,.8)); }
 
 /* --------------------------------------------------------------------------
-   8. Faixa de números
-   -------------------------------------------------------------------------- */
-.metrics {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border-block: 1px solid var(--edge);
-  background: linear-gradient(180deg, rgba(255,255,255,.022), transparent);
-}
-.metric { padding: 1.6rem 1rem; text-align: center; border-right: 1px solid var(--edge); }
-.metric:last-child { border-right: 0; }
-.metric b {
-  display: block;
-  font-family: var(--display);
-  font-size: clamp(1.6rem, 3.4vw, 2.2rem);
-  font-weight: 700;
-  color: var(--amber);
-  line-height: 1;
-  font-variant-numeric: tabular-nums;
-}
-.metric span {
-  display: block;
-  margin-top: .45rem;
-  font-family: var(--mono);
-  font-size: .64rem;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: var(--text-3);
-}
-@media (max-width: 640px) {
-  .metrics { grid-template-columns: repeat(2, 1fr); }
-  .metric:nth-child(2) { border-right: 0; }
-  .metric:nth-child(-n+2) { border-bottom: 1px solid var(--edge); }
-}
-
-/* --------------------------------------------------------------------------
    9. Problema
    -------------------------------------------------------------------------- */
 .problem__grid {
@@ -675,7 +640,7 @@ a { color: inherit; }
   background: var(--glass);
   border: 1px solid var(--edge);
   box-shadow: var(--sheen), 0 40px 80px -40px #000;
-  overflow: hidden;
+  overflow: clip;
   position: relative;
 }
 .story__tabs { display: flex; border-bottom: 1px solid var(--edge); background: rgba(0,0,0,.25); }
@@ -811,7 +776,7 @@ a { color: inherit; }
   background: var(--glass);
   border: 1px solid var(--edge);
   box-shadow: var(--sheen), 0 30px 60px -34px #000;
-  overflow: hidden;
+  overflow: clip;
   display: flex;
   flex-direction: column;
   transition: border-color .22s ease, transform .22s ease, background .22s ease;
@@ -897,7 +862,7 @@ a { color: inherit; }
   background: rgba(0,0,0,.42);
   border: 1px solid var(--edge);
   box-shadow: var(--sheen), 0 30px 60px -30px #000;
-  overflow: hidden;
+  overflow: clip;
 }
 .terminal__bar {
   display: flex;
@@ -1003,7 +968,7 @@ a { color: inherit; }
 .author__grid .slot {
   border: 1px solid var(--edge);
   box-shadow: var(--sheen), 0 30px 60px -34px #000;
-  overflow: hidden;
+  overflow: clip;
 }
 .author__body { display: grid; gap: 1rem; color: var(--text-2); }
 .author__sig { font-family: var(--display); font-size: 1.2rem; font-weight: 700; color: var(--amber); }
@@ -1020,7 +985,7 @@ a { color: inherit; }
   background: var(--glass-strong);
   border: 1px solid var(--edge-lit);
   box-shadow: var(--sheen), 0 50px 100px -50px #000;
-  overflow: hidden;
+  overflow: clip;
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
 }
