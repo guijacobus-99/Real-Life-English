@@ -108,6 +108,134 @@ ou apaga a `<section id="depoimentos">` inteira.
 
 ---
 
+---
+
+## Ligar a página ao pagamento (Hotmart / Kiwify)
+
+**A página não processa pagamento nenhum.** Ela é uma vitrine com um link. A
+pessoa clica, vai para o checkout da plataforma, paga lá, e a plataforma
+entrega o acesso e cuida de nota fiscal, antifraude, parcelamento e reembolso.
+
+Isso significa que você **não precisa** de servidor, banco de dados, certificado
+de pagamento nem integração de código. Precisa de **um link**, colado em um
+lugar só.
+
+### O fluxo, igual nas duas plataformas
+
+1. Cadastra o produto e sobe o arquivo do ebook
+2. Define o preço e publica
+3. A plataforma gera um **link de checkout**
+4. Você cola esse link no `assets/js/main.js`
+
+### Onde colar
+
+`assets/js/main.js`, primeiras linhas:
+
+```js
+var CONFIG = {
+  checkoutUrl: 'https://pay.hotmart.com/SEU-CODIGO',   // ← aqui
+```
+
+Um lugar só. Não procure link em outro arquivo — não tem.
+
+### Como os botões se comportam
+
+A página tem seis botões de compra, e eles **não fazem a mesma coisa**:
+
+| Botão | Para onde vai |
+|---|---|
+| Menu do topo | rola até a seção de preço |
+| Abertura ("Quero o Volume 1") | rola até a seção de preço |
+| Dentro do livro aberto | rola até a seção de preço |
+| Fechamento da página | rola até a seção de preço |
+| **Cartão da oferta** | **checkout**, em aba nova |
+| **Barra fixa do celular** | **checkout**, em aba nova |
+
+É de propósito: quem clica lá em cima ainda não leu o que está incluído nem a
+garantia. Mandar essa pessoa direto para o checkout derruba a conversão. Os
+quatro primeiros levam ela até a oferta; só ali ela sai da página.
+
+Se você quiser que **todos** vão direto ao checkout, troque o `href="#oferta"`
+por `href="#"` nos botões correspondentes do `index.html` — o script converte
+todo `href="#"` em link de checkout.
+
+### Hotmart
+
+1. Crie o produto em **Produtos → Cadastrar produto**, tipo **ebook / arquivo
+   digital**
+2. Suba o PDF (ou use o Hotmart Club se quiser área de membros)
+3. Defina o preço e envie para análise — **a Hotmart revisa antes de liberar**,
+   e isso leva algumas horas ou alguns dias
+4. Depois de aprovado, o link de checkout aparece na área de **Checkout /
+   Links** do produto, no formato `pay.hotmart.com/XXXXXXXX`
+5. Cole no `checkoutUrl`
+
+Se você criar mais de uma oferta (preço promocional, preço cheio), cada uma tem
+seu próprio código, e o link muda com o parâmetro de oferta. Use o link da
+oferta que a página anuncia — senão o preço do checkout não bate com o preço
+escrito na página, e isso derruba a venda na hora.
+
+### Kiwify
+
+1. Crie o produto em **Produtos → Novo produto**, tipo **digital**
+2. Suba o arquivo e defina o preço
+3. O link de checkout sai no formato `pay.kiwify.com.br/XXXXXXXX`
+4. Cole no `checkoutUrl`
+
+A aprovação costuma ser mais rápida que a da Hotmart.
+
+### Use uma, não as duas
+
+Dá para cadastrar o produto nas duas, mas a página só aponta para um link. Ter
+as duas ao mesmo tempo divide seu histórico de vendas, duplica o trabalho de
+suporte e não traz vantagem nenhuma no começo.
+
+Critério prático para escolher:
+
+- **Hotmart** se você quer **afiliados**. Ela tem marketplace, onde afiliado
+  encontra seu produto sozinho e vende por comissão. É a maior vantagem dela, e
+  a Kiwify não tem equivalente com o mesmo alcance.
+- **Kiwify** se você quer **subir rápido e sozinho**. Interface mais simples,
+  aprovação mais rápida, menos burocracia.
+
+Confira as taxas atuais na própria plataforma antes de decidir — elas mudam, e
+a diferença muda conforme o preço do produto.
+
+### Saber de onde veio cada venda
+
+Se você anunciar ou postar em vários lugares, vai querer saber o que gerou
+venda. As duas plataformas leem parâmetros na URL do checkout:
+
+```js
+// Hotmart usa 'src' para marcar a origem
+checkoutUrl: 'https://pay.hotmart.com/SEU-CODIGO?src=landing'
+
+// Kiwify lê os UTMs de sempre
+checkoutUrl: 'https://pay.kiwify.com.br/SEU-CODIGO?utm_source=landing'
+```
+
+Com isso, uma venda que veio desta página aparece marcada no relatório, separada
+das que vieram do Instagram ou do WhatsApp. Vale conferir na documentação da
+plataforma como o parâmetro aparece no relatório — os nomes mudam de tempos em
+tempos.
+
+### Depois da compra
+
+As duas deixam você escolher para onde a pessoa vai depois de pagar. Aponte para
+uma página de obrigado sua — pode ser um `obrigado.html` nesta mesma pasta, no
+mesmo visual. Serve para duas coisas: confirmar que deu certo (reduz o e-mail de
+"comprei e não recebi") e marcar a conversão, se você estiver anunciando.
+
+### Antes de considerar pronto
+
+- [ ] Comprar o próprio produto, de verdade, com cartão real
+- [ ] Conferir se o e-mail com o acesso chegou, e em quanto tempo
+- [ ] Conferir se o preço no checkout é **exatamente** o que está na página
+- [ ] Testar o botão no celular, não só no computador
+- [ ] Pedir o reembolso dessa compra teste, para ver o fluxo que seu aluno veria
+
+---
+
 ## Onde hospedar
 
 Qualquer hospedagem estática. A mais rápida: arraste a pasta `landing/` em
