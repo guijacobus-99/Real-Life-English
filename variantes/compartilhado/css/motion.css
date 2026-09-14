@@ -1,0 +1,302 @@
+/* ==========================================================================
+   Real-Life English — Volume 1 · VERSÃO 2
+   CAMADA DE MOVIMENTO
+   --------------------------------------------------------------------------
+   Conceito: a luz percorre a página. Nada voa, nada pula, nada gira —
+   o que se move é a luz, a profundidade e o foco. É o mesmo princípio das
+   páginas de produto da Apple: o movimento serve pra dirigir o olhar, e
+   você não deve conseguir apontar onde ele começa.
+
+   Três camadas:
+     A. Abertura      — uma cascata curta, só no carregamento
+     B. Entrada       — cada bloco assenta quando entra na tela (scroll)
+     C. Costura       — o fio de luz e a barra de progresso ligando os blocos
+
+   ⚠️ REGRA DE SEGURANÇA DESTE ARQUIVO
+   Todo o movimento por scroll vive dentro de @supports (animation-timeline).
+   Navegador sem suporte não recebe animação nenhuma e mostra a página
+   inteira, montada e legível. O padrão do site é "visível"; o movimento é
+   um acréscimo. Nada aqui pode esconder conteúdo.
+
+   Pra desligar tudo: apague a linha do motion.css no <head> do index.html.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   0. Quem pediu menos movimento não recebe nenhum
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress, .seam { display: none; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+/* ==========================================================================
+   A. ABERTURA — roda uma vez, no carregamento
+   ==========================================================================
+   O estado final é o CSS normal da página. O `backwards` faz o elemento
+   assumir o primeiro quadro antes de começar; se a animação não rodar,
+   tudo aparece montado do mesmo jeito.
+   ------------------------------------------------------------------------ */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes riseBook {
+  from { opacity: 0; transform: translateY(34px) scale(.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes lightUp {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(.6); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes settle {
+  from { opacity: 0; transform: translateY(10px) rotate(var(--tilt, 0deg)); }
+  to   { opacity: 1; transform: translateY(0) rotate(var(--tilt, 0deg)); }
+}
+
+.hero__wordmark { animation: rise .9s var(--ease) backwards; }
+.hero__sub      { animation: rise .9s .08s var(--ease) backwards; }
+.hero__checks   { animation: rise .9s .14s var(--ease) backwards; }
+.hero__actions  { animation: rise .9s .20s var(--ease) backwards; }
+.bonus          { animation: rise .9s .26s var(--ease) backwards; }
+
+.stage__book    { animation: riseBook 1.1s .12s var(--ease) backwards; }
+.stage__light   { animation: lightUp 1.6s .3s var(--ease-soft) backwards; }
+
+/* os cartões flutuantes chegam por último, já inclinados */
+.float--before { --tilt: -6deg; animation: settle .8s .55s var(--ease) backwards; }
+.float--after  { --tilt: 5deg;  animation: settle .8s .70s var(--ease) backwards; }
+.stage__seal   { animation: settle .8s .85s var(--ease) backwards; }
+
+.nav { animation: rise .7s var(--ease) backwards; }
+
+/* no celular os cartões não ficam inclinados, então a entrada é reta */
+@media (max-width: 980px) {
+  .float--before, .float--after { --tilt: 0deg; }
+}
+
+/* ==========================================================================
+   B. ENTRADA POR SCROLL — cada bloco assenta ao entrar na tela
+   ========================================================================== */
+@supports (animation-timeline: view()) {
+
+  @keyframes settleIn {
+    from { opacity: 0; transform: translateY(26px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-head,
+  .problem__quote,
+  .problem__body,
+  .spread,
+  .story,
+  .tile,
+  .profile,
+  .terminal,
+  .steps,
+  .quote,
+  .author__grid > *,
+  .offer__card,
+  .guarantee,
+  .faq__item,
+  .final__title,
+  .final .lede,
+  .final .btn {
+    animation: settleIn .8s var(--ease) both;
+    animation-timeline: view();
+    animation-range: entry 5% cover 30%;
+  }
+
+  /* --- cascata: cada irmão entra um pouco depois do anterior ---
+     Sem linha do tempo temporal, o atraso vem de deslocar a faixa de
+     scroll em que cada um anima. O efeito é o mesmo, e acompanha o
+     movimento da mão em vez de ignorá-lo. */
+  .tiles     > .tile:nth-child(2),
+  .profiles  > .profile:nth-child(2),
+  .quotes    > .quote:nth-child(2) { animation-range: entry 5% cover 36%; }
+
+  .tiles     > .tile:nth-child(3),
+  .profiles  > .profile:nth-child(3),
+  .quotes    > .quote:nth-child(3) { animation-range: entry 5% cover 42%; }
+
+  .tiles   > .tile:nth-child(4)    { animation-range: entry 5% cover 48%; }
+  .tiles   > .tile:nth-child(5)    { animation-range: entry 5% cover 54%; }
+  .tiles   > .tile:nth-child(6)    { animation-range: entry 5% cover 60%; }
+  .tiles   > .tile:nth-child(7)    { animation-range: entry 5% cover 66%; }
+
+  .faq__item:nth-child(2) { animation-range: entry 5% cover 34%; }
+  .faq__item:nth-child(3) { animation-range: entry 5% cover 38%; }
+  .faq__item:nth-child(4) { animation-range: entry 5% cover 42%; }
+  .faq__item:nth-child(5) { animation-range: entry 5% cover 46%; }
+  .faq__item:nth-child(6) { animation-range: entry 5% cover 50%; }
+  .faq__item:nth-child(7) { animation-range: entry 5% cover 54%; }
+
+  /* --- os painéis do livro aberto chegam depois da foto --- */
+  .spread__note { animation: settleIn .9s var(--ease) both; animation-timeline: view(); animation-range: entry 14% cover 44%; }
+  .toc          { animation: settleIn .9s var(--ease) both; animation-timeline: view(); animation-range: entry 18% cover 50%; }
+
+  /* --- o sumário se preenche: cada capítulo acende na sequência --- */
+  @keyframes tickIn {
+    from { opacity: 0; transform: scale(.4); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  .toc__list li .toc__check {
+    animation: tickIn .5s var(--ease) both;
+    animation-timeline: view(--spread);
+    animation-range: entry 25% cover 55%;
+  }
+  .spread { view-timeline-name: --spread; }
+  .toc__list li:nth-child(2) .toc__check { animation-range: entry 27% cover 57%; }
+  .toc__list li:nth-child(3) .toc__check { animation-range: entry 29% cover 59%; }
+  .toc__list li:nth-child(4) .toc__check { animation-range: entry 31% cover 61%; }
+  .toc__list li:nth-child(5) .toc__check { animation-range: entry 33% cover 63%; }
+  .toc__list li:nth-child(6) .toc__check { animation-range: entry 35% cover 65%; }
+  .toc__list li:nth-child(7) .toc__check { animation-range: entry 37% cover 67%; }
+
+  /* ------------------------------------------------------------------------
+     PARALAXE DO PALCO
+     O livro sobe mais devagar que o texto e a luz atrás dele se abre.
+     É o que dá a sensação de profundidade: dois planos, duas velocidades.
+     ---------------------------------------------------------------------- */
+  @keyframes bookDrift {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-42px); }
+  }
+  @keyframes lightBreathe {
+    from { transform: translate(-50%, -50%) scale(1);   opacity: 1; }
+    to   { transform: translate(-50%, -50%) scale(1.3); opacity: .45; }
+  }
+
+  @media (min-width: 981px) {
+    .stage__book {
+      animation: riseBook 1.1s .12s var(--ease) backwards, bookDrift linear both;
+      animation-timeline: auto, scroll();
+      animation-range: normal, 0 70vh;
+    }
+    .stage__light {
+      animation: lightUp 1.6s .3s var(--ease-soft) backwards, lightBreathe linear both;
+      animation-timeline: auto, scroll();
+      animation-range: normal, 0 80vh;
+    }
+  }
+
+  /* ------------------------------------------------------------------------
+     C. COSTURA — o que liga um bloco ao outro
+     ---------------------------------------------------------------------- */
+
+  /* barra de progresso de leitura, no topo da página */
+  @keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .scroll-progress::after {
+    animation: grow linear both;
+    animation-timeline: scroll(root);
+  }
+
+  /* o fio de luz que desce pela lateral conforme você lê */
+  .seam::after {
+    animation: grow linear both;
+    animation-timeline: scroll(root);
+  }
+}
+
+/* ==========================================================================
+   D. MICRO-INTERAÇÕES — resposta ao cursor
+   ========================================================================== */
+
+/* o verniz do botão varre quando o cursor passa */
+.btn--primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(105deg, transparent 38%, rgba(255,255,255,.42) 50%, transparent 62%);
+  transform: translateX(-120%);
+  pointer-events: none;
+}
+.btn--primary:hover::after { transition: transform .75s var(--ease); transform: translateX(120%); }
+
+/* holofote seguindo o cursor nos cards de vidro */
+.tile, .profile, .faq__item, .quote { position: relative; }
+.tile::after, .profile::after, .faq__item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .35s var(--ease);
+  background: radial-gradient(
+    260px circle at var(--mx, 50%) var(--my, 0%),
+    rgba(224, 165, 63, .13),
+    transparent 62%
+  );
+}
+.tile:hover::after, .profile:hover::after, .faq__item:hover::after { opacity: 1; }
+
+/* O holofote passa POR CIMA do conteúdo, não por baixo.
+   Motivo: dar z-index aos filhos do card criaria um contexto de
+   empilhamento em cada um — e isso isola o `mix-blend-mode` dos retratos,
+   que param de fundir com o fundo do card e viram um retângulo preto.
+   Como o brilho é âmbar a 13%, passar por cima não atrapalha a leitura. */
+.tile::after, .profile::after, .faq__item::after { z-index: 2; }
+
+/* as palavras da demonstração respondem antes do clique */
+.w { transition: background .18s var(--ease), color .18s var(--ease), border-color .18s var(--ease), transform .18s var(--ease); }
+.w:hover { transform: translateY(-1px); }
+
+/* capítulos do sumário acendem na passagem */
+.toc__list li { transition: transform .25s var(--ease); }
+.toc__list li:hover { transform: translateX(3px); }
+
+} /* fim do @media (prefers-reduced-motion: no-preference) */
+
+/* ==========================================================================
+   E. PEÇAS FIXAS — existem sempre; só a animação depende do suporte
+   ========================================================================== */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  z-index: 95;
+  pointer-events: none;
+}
+.scroll-progress::after {
+  content: "";
+  display: block;
+  height: 100%;
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, var(--amber-lo), var(--amber-hi));
+  box-shadow: 0 0 14px var(--amber-glow);
+}
+
+.seam {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 0;
+  width: 1px;
+  z-index: 2;
+  pointer-events: none;
+  display: none;
+}
+.seam::after {
+  content: "";
+  display: block;
+  height: 100%;
+  transform-origin: 50% 0;
+  transform: scaleY(0);
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(224, 165, 63, .5) 12%,
+    rgba(224, 165, 63, .22) 55%,
+    transparent
+  );
+}
+@media (min-width: 1180px) { .seam { display: block; } }
+
+/* quando o JS assume (navegador sem animação presa ao scroll),
+   ele cria um filho real e o pseudo-elemento sai de cena */
+.scroll-progress.is-js::after, .seam.is-js::after { display: none; }
