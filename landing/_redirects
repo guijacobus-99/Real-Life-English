@@ -1,0 +1,11 @@
+# Netlify / Cloudflare Pages.
+#
+# A pasta publicada não deve servir documentação interna. Os guias moram em
+# docs/ na raiz do repositório, fora daqui — esta regra é a segunda tranca,
+# para o caso de algum .md ou .txt de anotação cair nesta pasta um dia.
+/*.md      /404.html  404
+/*.markdown  /404.html  404
+
+# Arquivos de configuração e de controle de versão nunca devem responder.
+/.git/*    /404.html  404
+/.env*     /404.html  404

@@ -1,17 +1,40 @@
 # Cabeçalhos de segurança — Netlify e Cloudflare Pages leem este arquivo.
-# Na Vercel, quem vale é o vercel.json. Em hospedagem própria (Apache/Nginx),
-# traduza estas linhas para a configuração do servidor.
+# Na Vercel, quem vale é o vercel.json (as duas listas são iguais de propósito).
+# Em hospedagem própria (Apache/Nginx), traduza estas linhas para a config do
+# servidor. Depois de publicar, confira em https://securityheaders.com.
 
 /*
-  Content-Security-Policy: default-src 'self'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; object-src 'none'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'self'; connect-src 'self'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; frame-src 'none'; object-src 'none'; img-src 'self'; style-src 'self'; script-src 'self'; font-src 'self'; connect-src 'self'; media-src 'none'; worker-src 'none'; manifest-src 'self'; upgrade-insecure-requests
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=()
-  Strict-Transport-Security: max-age=31536000
+  Permissions-Policy: accelerometer=(), autoplay=(), browsing-topics=(), camera=(), display-capture=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), usb=(), xr-spatial-tracking=()
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
 
+# O HTML nunca fica preso em cache: correção de preço ou de link de checkout
+# tem que chegar no visitante na hora, não daqui a uma semana.
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Fontes e imagens têm nome fixo e conteúdo estável: cache longo.
 /assets/fonts/*
   Cache-Control: public, max-age=31536000, immutable
 
+# Exceção proposital ao same-origin acima: a prévia do link no WhatsApp,
+# no Instagram e no Facebook precisa buscar a og-image de fora do site.
+# (Comentário fora do bloco de propósito: dentro dele, linha indentada é
+# lida como cabeçalho por alguns parsers.)
 /assets/img/*
   Cache-Control: public, max-age=2592000
+  Cross-Origin-Resource-Policy: cross-origin
+
+/assets/css/*
+  Cache-Control: public, max-age=604800
+
+/assets/js/*
+  Cache-Control: public, max-age=604800

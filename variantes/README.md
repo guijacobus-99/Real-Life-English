@@ -80,9 +80,25 @@ Diga qual e eu:
 1. Promovo a pasta escolhida a `landing/`, com a estrutura definitiva
 2. Trago o que hoje só existe na versão atual: seção do tutor de IA, autor
    completo, depoimentos, termos e privacidade
-3. Levo junto a segurança que já está pronta: CSP, cabeçalhos, robots.txt,
-   fontes próprias
+3. Levo junto a segurança que já está pronta: CSP, cabeçalhos, `_redirects`,
+   `robots.txt`, `security.txt`, página de 404 e fontes próprias — o conjunto
+   inteiro que está em `landing/` hoje (documentado em
+   `docs/GUIA-DA-PAGINA.md`)
 4. Ligo os três botões de compra aos três links de checkout
 
 O que **não** muda com a escolha: a copy, a animação do livro, o
 toque-pra-traduzir e a estrutura de preço.
+
+---
+
+## Sobre o JavaScript destas três
+
+O `compartilhado/js/main.js` é o mesmo arquivo da página principal e já veio
+com o endurecimento feito lá: nenhum `innerHTML`, e o link de checkout só é
+aceito se for `https://` e cair em um dos domínios de
+`CONFIG.checkoutDominios`. Se o seu checkout usar domínio próprio, acrescente
+esse domínio na lista — vale para qualquer variante que você escolher.
+
+Os arquivos de segurança da hospedagem (`_headers`, `vercel.json`,
+`_redirects`) **não** estão aqui: estas três pastas são para você olhar e
+escolher, não para publicar. Eles entram quando a escolhida virar `landing/`.

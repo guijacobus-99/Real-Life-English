@@ -1,0 +1,3 @@
+# Documentação interna nunca sobe para a hospedagem.
+*.md
+*.markdown

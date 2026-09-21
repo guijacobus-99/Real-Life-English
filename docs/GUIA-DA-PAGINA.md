@@ -5,25 +5,39 @@ produto em exposição. HTML, CSS e JavaScript puros, sem build, sem npm. Você
 abre o `index.html` no navegador e ela funciona.
 
 ```
-landing/
+landing/                  ← ESTA pasta é a que vai para a hospedagem
 ├── index.html            ← a página
 ├── termos.html           ← modelo a preencher
 ├── privacidade.html      ← modelo a preencher
+├── 404.html              ← página de endereço inexistente
 ├── robots.txt            ← o que buscador e raspador podem fazer
 ├── _headers              ← cabeçalhos de segurança (Netlify/Cloudflare)
-├── vercel.json           ← os mesmos, para a Vercel
-├── assets/
-│   ├── fonts/            ← fontes servidas daqui, não do Google
-│   ├── css/fonts.css     ← as declarações delas
-│   ├── css/styles.css    ← o visual
-│   ├── css/motion.css    ← a camada de movimento
-│   ├── css/opening.css   ← a sequência do livro no topo
-│   ├── js/main.js        ← configuração + interações
-│   ├── js/motion.js      ← movimento que o CSS não faz sozinho
-│   └── img/              ← as imagens (ver IMAGENS.md)
-├── IMAGENS.md            ← o que ainda falta gerar
-└── README.md             ← este arquivo
+├── _redirects            ← 404 para .md, .env e .git (Netlify/Cloudflare)
+├── vercel.json           ← os mesmos cabeçalhos, para a Vercel
+├── .vercelignore         ← impede que .md suba na Vercel
+├── .well-known/
+│   └── security.txt      ← como reportar um problema de segurança
+└── assets/
+    ├── fonts/            ← fontes servidas daqui, não do Google
+    ├── css/fonts.css     ← as declarações delas
+    ├── css/styles.css    ← o visual
+    ├── css/motion.css    ← a camada de movimento
+    ├── css/opening.css   ← a sequência do livro no topo
+    ├── js/main.js        ← configuração + interações
+    ├── js/motion.js      ← movimento que o CSS não faz sozinho
+    └── img/              ← as imagens (ver docs/IMAGENS.md)
+
+docs/                     ← documentação interna, NÃO sobe para a hospedagem
+├── GUIA-DA-PAGINA.md     ← este arquivo
+└── IMAGENS.md            ← o que ainda falta gerar
+
+scripts/
+└── conferir-landing.sh   ← a trava que roda antes de publicar
 ```
+
+> **Por que os guias ficam em `docs/` e não em `landing/`:** tudo que está
+> dentro de `landing/` vira endereço público no ar. Um `README.md` ali
+> responderia em `seusite.com.br/README.md` para qualquer pessoa.
 
 ---
 
@@ -90,7 +104,7 @@ Promessa de bônus é oferta: uma vez publicada, quem comprar pode cobrar.
 
 ### 4. Imagens — **obrigatório**
 
-Veja o `IMAGENS.md`. As duas essenciais (capa em 3D e livro aberto) já foram
+Veja o `docs/IMAGENS.md`. As duas essenciais (capa em 3D e livro aberto) já foram
 geradas pelo Higgsfield e estão na sua galeria em higgsfield.ai — baixe de lá
 e salve na pasta `assets/img/` com o nome exato. O arquivo traz também os
 prompts que funcionaram e os limites da conta free.
@@ -296,11 +310,41 @@ justamente a folga que um ataque de injeção usa.
 - `Strict-Transport-Security` — depois da primeira visita, o navegador se
   recusa a abrir seu site sem HTTPS.
 
-**JavaScript auditado.** Os dois pontos que montam HTML por string foram
-conferidos: um insere um número inteiro (a contagem de palavras), o outro
-limpa um elemento. Todo texto que vem da página é inserido com `textContent`,
-que não interpreta marcação. **A página não lê nada da URL, de cookie ou de
-storage** — não existe entrada por onde injetar.
+**JavaScript sem nenhum ponto onde texto vira HTML.** Os dois `innerHTML`
+que existiam foram trocados por criação de nós (`createElement`,
+`createTextNode`). Nenhum dos dois era furo — um inseria um número contado
+pela própria página, o outro limpava um elemento — mas zerar a conta tem um
+valor prático: a regra vira simples de checar. Qualquer `innerHTML` que
+aparecer no arquivo daqui pra frente é erro, sem precisar analisar caso a
+caso. E **a página não lê nada da URL, de cookie ou de storage** — não existe
+entrada por onde injetar.
+
+**O link de checkout é conferido antes de entrar na página.** Ele é o único
+valor aqui que, se estiver errado, custa dinheiro de verdade. O código só
+aceita o link se for `https://` **e** se o domínio estiver na lista de
+`CONFIG.checkoutDominios` (Hotmart e Kiwify, de fábrica). Isso derruba de uma
+vez o erro bobo — `http://`, endereço digitado errado — e o caso feio:
+`javascript:...`, `data:...` ou um domínio parecido com o da plataforma, tipo
+`hotmart.com.outracoisa.net`. Link recusado faz os botões voltarem para a
+seção de preço e deixa um aviso no console do navegador explicando o motivo.
+**Se o seu checkout usar domínio próprio, acrescente-o em
+`CONFIG.checkoutDominios`** — senão os botões não vão levar a lugar nenhum.
+
+**A documentação interna saiu da pasta publicada.** Este guia e o
+`IMAGENS.md` moravam dentro de `landing/`, que é exatamente a pasta que vai
+para a hospedagem — ou seja, `seusite.com.br/README.md` responderia com tudo
+o que está escrito aqui, incluindo como sua hospedagem está configurada.
+Agora os dois vivem em `docs/`, na raiz do repositório, fora do que sobe. O
+`_redirects` e o `.vercelignore` são a segunda tranca, para o caso de algum
+`.md` cair ali de novo um dia.
+
+**Uma trava automática antes de publicar.** `bash scripts/conferir-landing.sh`
+confere tudo isso de uma vez: host externo, `innerHTML`, script inline,
+`onclick=`, arquivo interno na pasta publicada, padrão de chave ou token, as
+CSP iguais entre as páginas e os dois arquivos de hospedagem, e se todo
+arquivo que o HTML pede existe mesmo. Sai com erro se achar qualquer coisa.
+Vale rodar sempre que mexer na página — principalmente depois de colar algum
+script novo.
 
 ### O que não dá para impedir, e por que tudo bem
 
@@ -336,6 +380,84 @@ medida de segurança, não só de estética.
 
 Em todos os casos, o princípio é o mesmo: libere **o domínio específico**, não
 `*`.
+
+### A lista dos 20 pontos, um por um
+
+Aquela lista que circula ("20 coisas para fazer antes de lançar seu app") foi
+escrita pensando em **aplicação com servidor e banco de dados** — Supabase,
+Firebase, API própria. Metade dela simplesmente não tem onde encostar numa
+página estática, e é importante saber a diferença entre "está resolvido" e
+"não existe aqui": são coisas diferentes, e a segunda vira a primeira no dia
+em que você adicionar login, formulário ou área de membros.
+
+**O que foi aplicado nesta página:**
+
+| # | Ponto | O que foi feito aqui |
+|---|---|---|
+| 1 | Esconder API keys | Não existe nenhuma chave na página. A trava automática falha se alguma aparecer. |
+| 2 | Limpar secrets do git | Varredura feita no conteúdo e no histórico. Um achado — veja logo abaixo. |
+| 7 | Restringir acessos | Documentação interna tirada da pasta publicada; `.md`, `.env` e `.git` respondem 404; página de 404 própria. |
+| 14 | Validação de input | Aplicada no único input que existe: o link de checkout (`https://` + lista de domínios). |
+| 15 | Vazar conteúdo | Sem sourcemap, sem arquivo temporário, sem documentação interna na pasta que sobe. |
+| 18 | Security headers | CSP fechada, `X-Frame-Options`, `nosniff`, `Referrer-Policy`, `Permissions-Policy`, `COOP`, `CORP` e HSTS — nos dois arquivos de hospedagem e também no `<meta>` de cada página. |
+| 19 | Forçar HTTPS | `upgrade-insecure-requests` na CSP + HSTS de um ano com `includeSubDomains`. A hospedagem faz o redirecionamento. |
+| 20 | Scan de dependências | Não há dependência nenhuma: zero pacote, zero script de terceiro. A trava confere que continua assim. |
+
+**O que não existe nesta página** (e por que isso não é lacuna):
+
+| # | Ponto | Por quê |
+|---|---|---|
+| 3 | Public key do banco | Não há banco de dados. |
+| 4 | Ativar RLS | Idem — RLS é regra de linha em banco. |
+| 5 | Criptografia de dados | Não há dado guardado. Em trânsito, o HTTPS já cobre. |
+| 6 | Auth no servidor | Não há login nem usuário. |
+| 8 | Mass assignment | É falha de API que aceita campo que não devia. Não há API. |
+| 9 | Proteger cookies | A página não cria um único cookie, nem usa `localStorage`. Conferido. |
+| 10 | Hash de senha | Não há senha. Quem guarda dado de comprador é a Hotmart/Kiwify. |
+| 11 | Rate limit | Não há endpoint para limitar. O controle de volume fica na borda da hospedagem. |
+| 12 | Bot protection | Sem servidor, reCAPTCHA não tem como validar a pontuação. A defesa certa é na hospedagem — veja a seção seguinte. |
+| 13 | Queries parametrizadas | Não há SQL. |
+| 16 | Restringir uploads | Não há upload. |
+| 17 | Enxugar resposta de API | Não há API. |
+
+O dia em que você colocar **captura de e-mail, área de membros ou login**,
+essa segunda tabela deixa de ser "não se aplica" e vira a sua lista de
+tarefas. Guarde-a.
+
+#### O achado do ponto 2
+
+Tem uma coisa para você decidir. Quando te mandei os zips das imagens, a URL
+de download foi commitada no `IMAGENS.md` e depois removida — mas **remover
+num commit seguinte não apaga do histórico**. A URL ainda está em
+`8df2502`, e este repositório é público.
+
+O que aquela URL expõe: o identificador da sua conta no Higgsfield e o
+download das suas próprias imagens. **Não é senha, não é chave de API, não dá
+acesso a conta nenhuma** — quem abrir baixa as imagens que já estão públicas
+no site. Por isso classifiquei como baixo, não urgente.
+
+As opções, honestamente:
+
+1. **Deixar como está.** É o que eu faria. O conteúdo não é sensível e a URL
+   é impossível de adivinhar.
+2. **Reescrever o histórico** (`git filter-repo`) e forçar o push. Some do
+   repositório, mas não some de quem já clonou nem de cache do GitHub, e
+   quebra qualquer cópia que exista da branch. Me peça se quiser.
+3. **Tornar o repositório privado.** Resolve de uma vez, e de quebra tira do
+   ar o outro ponto abaixo.
+
+Daqui pra frente links assim ficam em `LINKS-PRIVADOS.md`, que está no
+`.gitignore` e não é commitado.
+
+#### Um ponto fora da página, mas no mesmo repositório
+
+`data/Relatório-sem-título-mar-3-2026-a-abr-1-2026.csv` está commitado e é um
+relatório de campanha de anúncios: nome de campanha, valor gasto em BRL,
+impressões, alcance e custo por resultado. Num repositório público, isso é
+número do seu negócio aberto na internet. Não mexi nele porque não é da
+landing page e a decisão é sua — mas, se não for de propósito, vale tirar
+(lembrando que sair do commit atual não tira do histórico: valem as mesmas
+três opções acima).
 
 ### Robôs e tráfego de anúncio
 
@@ -453,6 +575,8 @@ lê o arquivo. Está lá por higiene e por causa do SEO, não como defesa.
 
 ### Antes de publicar
 
+- [ ] **Rodar a trava:** `bash scripts/conferir-landing.sh` — tem que sair
+      sem nenhuma FALHA
 - [ ] HTTPS ativo — Netlify, Vercel e Cloudflare Pages fazem sozinhos
 - [ ] Conferir os cabeçalhos depois no ar em
       [securityheaders.com](https://securityheaders.com)

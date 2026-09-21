@@ -1,0 +1,7 @@
+# Como avisar sobre um problema de segurança nesta página.
+# Formato RFC 9116. TROCAR o e-mail e o domínio antes de publicar.
+
+Contact: mailto:contato@seudominio.com.br
+Expires: 2027-09-21T00:00:00.000Z
+Preferred-Languages: pt-BR, en
+Canonical: https://seudominio.com.br/.well-known/security.txt

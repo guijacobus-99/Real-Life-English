@@ -14,7 +14,13 @@
     checkoutUrl: '',
 
     // Moeda usada nos textos de preço.
-    currency: 'R$'
+    currency: 'R$',
+
+    // Domínios onde o checkout pode morar. O link acima só é aceito se for
+    // https:// E cair em um destes. Serve para que um endereço errado,
+    // colado por engano, não mande o comprador para o lugar errado.
+    // Usa checkout em domínio próprio? Acrescente o domínio nesta lista.
+    checkoutDominios: ['hotmart.com', 'hotmart.com.br', 'kiwify.com.br', 'kiwify.app']
   };
 
   /* ========================================================================
@@ -146,9 +152,24 @@
     function updateCounter() {
       if (!counter) { return; }
       var n = Object.keys(known).length;
-      counter.innerHTML = n === 0
-        ? 'Nenhuma palavra traduzida ainda'
-        : '<b>' + n + '</b> ' + (n === 1 ? 'palavra traduzida' : 'palavras traduzidas');
+
+      // Montado com nós de texto em vez de innerHTML. Aqui a string é só um
+      // número contado por nós, então não havia furo — mas deixar a página
+      // sem NENHUM ponto onde texto vira HTML é o que torna a regra fácil de
+      // manter: qualquer innerHTML que aparecer depois é erro, sem exceção.
+      while (counter.firstChild) { counter.removeChild(counter.firstChild); }
+
+      if (n === 0) {
+        counter.appendChild(document.createTextNode('Nenhuma palavra traduzida ainda'));
+        return;
+      }
+
+      var forte = document.createElement('b');
+      forte.textContent = String(n);
+      counter.appendChild(forte);
+      counter.appendChild(document.createTextNode(
+        n === 1 ? ' palavra traduzida' : ' palavras traduzidas'
+      ));
     }
 
     function hide() {
@@ -163,7 +184,7 @@
       active = word;
       word.classList.add('is-active', 'is-known');
 
-      chip.innerHTML = '';
+      while (chip.firstChild) { chip.removeChild(chip.firstChild); }
       var tag = document.createElement('small');
       tag.textContent = word.getAttribute('data-tag');
       chip.appendChild(tag);
@@ -246,20 +267,59 @@
   /* ========================================================================
      5. Checkout, preço e ano
      ======================================================================== */
-  if (CONFIG.checkoutUrl) {
-    $$('[data-cta]').forEach(function (link) {
-      if (link.getAttribute('href') === '#') {
-        link.setAttribute('href', CONFIG.checkoutUrl);
-        link.setAttribute('target', '_blank');
-        link.setAttribute('rel', 'noopener');
-      }
+  // O link de checkout é o único valor da página que, se estiver errado,
+  // custa dinheiro de verdade: manda o comprador (e o pagamento) para outro
+  // lugar. Por isso ele não é usado como veio — é conferido antes.
+  //
+  // Recusa: qualquer coisa que não seja https:// e que não caia em um dos
+  // domínios de CONFIG.checkoutDominios. Isso derruba de uma vez o caso
+  // bobo (http://, endereço com erro de digitação) e o caso feio
+  // (javascript:..., data:..., um domínio parecido com o da Hotmart).
+  function checkoutConferido(bruto) {
+    var url;
+    try {
+      url = new URL(String(bruto), window.location.href);
+    } catch (e) {
+      return null;
+    }
+
+    if (url.protocol !== 'https:') { return null; }
+
+    var host = url.hostname.toLowerCase();
+    var liberado = (CONFIG.checkoutDominios || []).some(function (dominio) {
+      var d = String(dominio).toLowerCase();
+      // o domínio exato, ou um subdomínio dele — e nada de sufixo solto:
+      // "hotmart.com.invasor.net" não passa, "pay.hotmart.com" passa.
+      return host === d || host.slice(-(d.length + 1)) === '.' + d;
     });
-  } else {
-    // sem checkout configurado: os botões levam pra seção de preço
-    $$('[data-cta]').forEach(function (link) {
-      if (link.getAttribute('href') === '#') { link.setAttribute('href', '#oferta'); }
-    });
+
+    return liberado ? url.href : null;
   }
+
+  var checkout = CONFIG.checkoutUrl ? checkoutConferido(CONFIG.checkoutUrl) : null;
+
+  if (CONFIG.checkoutUrl && !checkout && window.console && console.warn) {
+    console.warn(
+      '[Real-Life English] O checkoutUrl foi recusado: ele precisa ser https:// ' +
+      'e estar em um dos domínios de CONFIG.checkoutDominios. Os botões estão ' +
+      'levando para a seção de preço. Se o seu checkout usa domínio próprio, ' +
+      'acrescente esse domínio em CONFIG.checkoutDominios.'
+    );
+  }
+
+  $$('[data-cta]').forEach(function (link) {
+    if (link.getAttribute('href') !== '#') { return; }
+
+    if (checkout) {
+      link.setAttribute('href', checkout);
+      link.setAttribute('target', '_blank');
+      // noopener: a aba do checkout não ganha referência à aba da página.
+      link.setAttribute('rel', 'noopener');
+    } else {
+      // sem checkout válido: os botões levam pra seção de preço
+      link.setAttribute('href', '#oferta');
+    }
+  });
 
   var priceEl = $('[data-price]');
   var priceMirror = $('[data-price-mirror]');
